@@ -4,6 +4,7 @@ import FaCog from 'react-icons/lib/fa/cog';
 import FaEye from 'react-icons/lib/fa/eye';
 
 const HeaderAction = styled.button`
+  -webkit-app-region: no-drag;
   border: 0;
   background: none;
   outline: none;
@@ -26,7 +27,7 @@ const HeaderActionWrapper = styled.div`
   transform: translateY(-50%);
 `;
 
-const HeaderActions = ({ vizActive, onVizToggle }) =>
+const HeaderActions = ({ vizActive, onVizToggle }) => (
   <HeaderActionWrapper>
     <HeaderAction onClick={onVizToggle} vizActive={vizActive}>
       <FaEye width="24px" height="24px" />
@@ -38,6 +39,7 @@ const HeaderActions = ({ vizActive, onVizToggle }) =>
     >
       <FaCog width="24px" height="24px" />
     </HeaderAction>
-  </HeaderActionWrapper>;
+  </HeaderActionWrapper>
+);
 
 export default HeaderActions;

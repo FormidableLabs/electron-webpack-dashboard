@@ -20,6 +20,7 @@ const close = () => {
 };
 
 const HeaderIcon = styled.span`
+  -webkit-app-region: no-drag;
   background: white;
   border-radius: 50%;
   display: inline-block;
@@ -42,11 +43,12 @@ const HeaderIconWrapper = styled.div`
   transform: translateY(-50%);
 `;
 
-const HeaderIcons = () =>
+const HeaderIcons = () => (
   <HeaderIconWrapper>
     <HeaderIcon onClick={close} />
     <HeaderIcon onClick={minimize} />
     <HeaderIcon onClick={maximize} />
-  </HeaderIconWrapper>;
+  </HeaderIconWrapper>
+);
 
 export default HeaderIcons;

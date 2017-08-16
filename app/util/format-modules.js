@@ -159,6 +159,7 @@ function bundleSizeTree(stats) {
 
 export function formatModules(data) {
   let trees;
+  console.log(data);
   if (!data.hasOwnProperty('modules')) {
     trees = data.children.map(bundleSizeTree);
   } else {

@@ -23,3 +23,7 @@ table {
 table td {
   word-wrap: break-word;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}

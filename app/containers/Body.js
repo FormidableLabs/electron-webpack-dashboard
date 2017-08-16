@@ -37,12 +37,17 @@ class Body extends React.PureComponent {
     problemsLoading: false,
   };
   componentWillMount() {
-    this.server = new SocketIO(DEFAULT_PORT);
-    this.server.on('connection', socket => {
-      socket.on('message', message => {
-        this.setState(handleSocketData(message));
+    try {
+      this.server = new SocketIO(DEFAULT_PORT);
+    } catch (e) {
+      alert(e);
+    }
+    this.server &&
+      this.server.on('connection', socket => {
+        socket.on('message', message => {
+          this.setState(handleSocketData(message));
+        });
       });
-    });
   }
   componentDidMount() {
     window.addEventListener('resize', this.checkLayout);
@@ -50,7 +55,7 @@ class Body extends React.PureComponent {
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.checkLayout);
-    this.server.disconnect();
+    this.server && this.server.disconnect();
   }
   checkLayout = () => {
     let breakpoint;

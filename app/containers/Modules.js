@@ -35,6 +35,7 @@ class Modules extends React.PureComponent {
     }
     if (stats) {
       const modules = formatModules(stats);
+      console.log(modules);
       return (
         <Container>
           <table>
