@@ -1,0 +1,200 @@
+{
+  "name": "webpack-dashboard-app",
+  "productName": "WebpackDashboard",
+  "appId": "org.formidable.WebpackDashboard",
+  "version": "0.0.1-beta.1",
+  "description": "Webpack Dashboard app interface",
+  "main": "main.js",
+  "author": "Ken Wheeler <thekenwheeler@gmail.com>",
+  "scripts": {
+    "build": "concurrently \"npm run build-main\" \"npm run build-renderer\"",
+    "build-dll": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.dev.dll.js --colors",
+    "build-main": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.main.prod.js --colors",
+    "build-renderer": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.prod.js --colors",
+    "dev": "cross-env START_HOT=1 npm run start-renderer-dev",
+    "flow": "flow",
+    "flow-typed": "rimraf flow-typed/npm && flow-typed install --overwrite || true",
+    "lint": "eslint --cache --format=node_modules/eslint-formatter-pretty .",
+    "lint-fix": "npm run lint -- --fix",
+    "lint-styles": "stylelint app/*.css app/components/*.css --syntax scss",
+    "lint-styles-fix": "stylefmt -r app/*.css app/components/*.css",
+    "package": "npm run build && build --publish never",
+    "package-all": "npm run build && build -mwl",
+    "package-linux": "npm run build && build --linux",
+    "package-win": "npm run build && build --win --x64",
+    "postinstall": "concurrently \"npm run flow-typed\" \"npm run build-dll\" \"electron-builder install-app-deps\" \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\"",
+    "prestart": "npm run build",
+    "start": "cross-env NODE_ENV=production electron ./app/",
+    "start-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./app/main.dev",
+    "start-renderer-dev": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.renderer.dev.js",
+    "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js",
+    "test-all": "npm run lint && npm run flow && npm run build && npm run test && npm run test-e2e",
+    "test-e2e": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js e2e",
+    "test-watch": "npm test -- --watch"
+  },
+  "browserslist": "electron 1.6",
+  "build": {
+    "productName": "Webpack Dashboard",
+    "appId": "org.formidable.WebpackDashboard",
+    "files": [
+      "dist/",
+      "node_modules/",
+      "app.html",
+      "main.prod.js",
+      "main.prod.js.map",
+      "package.json"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": ["nsis"]
+    },
+    "linux": {
+      "target": ["deb", "AppImage"]
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    }
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chentsulin/electron-react-boilerplate/issues"
+  },
+  "keywords": [
+    "electron",
+    "boilerplate",
+    "react",
+    "redux",
+    "flow",
+    "sass",
+    "webpack",
+    "hot",
+    "reload"
+  ],
+  "homepage": "https://github.com/chentsulin/electron-react-boilerplate#readme",
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/fileMock.js",
+      "\\.(css|less|sass|scss)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": ["js"],
+    "moduleDirectories": ["node_modules", "app/node_modules"],
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "setupFiles": ["./internals/scripts/CheckBuiltsExist.js"]
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.3",
+    "babel-loader": "^7.1.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-dev-expression": "^0.2.1",
+    "babel-plugin-dynamic-import-webpack": "^1.0.1",
+    "babel-plugin-flow-runtime": "^0.11.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-classes": "^6.24.1",
+    "babel-preset-env": "^1.5.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-react-optimize": "^1.0.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "babili-webpack-plugin": "^0.1.2",
+    "chalk": "^2.1.0",
+    "concurrently": "^3.5.0",
+    "cross-env": "^5.0.0",
+    "cross-spawn": "^5.1.0",
+    "css-loader": "^0.28.3",
+    "electron": "^1.6.10",
+    "electron-builder": "^19.8.0",
+    "electron-devtools-installer": "^2.2.0",
+    "enzyme": "^2.9.1",
+    "enzyme-to-json": "^1.5.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-formatter-pretty": "^1.1.0",
+    "eslint-import-resolver-webpack": "^0.8.3",
+    "eslint-plugin-compat": "^1.0.4",
+    "eslint-plugin-flowtype": "^2.33.0",
+    "eslint-plugin-flowtype-errors": "^3.3.0",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-jest": "^20.0.3",
+    "eslint-plugin-jsx-a11y": "5.0.3",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^7.1.0",
+    "express": "^4.15.3",
+    "extract-text-webpack-plugin": "latest",
+    "fbjs-scripts": "^0.8.0",
+    "file-loader": "^0.11.1",
+    "flow-bin": "^0.48.0",
+    "flow-runtime": "^0.13.0",
+    "flow-typed": "^2.1.2",
+    "html-webpack-plugin": "^2.29.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^20.0.4",
+    "jsdom": "^11.0.0",
+    "minimist": "^1.2.0",
+    "node-sass": "^4.5.3",
+    "react-addons-test-utils": "^15.6.0",
+    "react-test-renderer": "^15.6.1",
+    "redux-logger": "^3.0.6",
+    "rimraf": "^2.6.1",
+    "sass-loader": "^6.0.6",
+    "sinon": "^2.3.5",
+    "spectron": "^3.7.0",
+    "style-loader": "^0.18.1",
+    "stylefmt": "^6.0.0",
+    "stylelint": "^7.12.0",
+    "stylelint-config-standard": "^16.0.0",
+    "url-loader": "^0.5.8",
+    "webpack": "3.1.0",
+    "webpack-bundle-analyzer": "^2.8.2",
+    "webpack-dev-server": "^2.5.0",
+    "webpack-merge": "^4.1.0"
+  },
+  "dependencies": {
+    "ansi-html": "0.0.7",
+    "ansi-to-react": "^1.2.0",
+    "d3": "^4.10.0",
+    "d3-scale": "^1.0.6",
+    "d3-scale-chromatic": "^1.1.1",
+    "devtron": "^1.4.0",
+    "electron-debug": "^1.2.0",
+    "electron-json-storage": "^3.0.7",
+    "font-awesome": "^4.7.0",
+    "handlebars": "^4.0.10",
+    "history": "^4.6.3",
+    "lodash": "^4.17.4",
+    "prop-types": "^15.5.10",
+    "rc-progress": "^2.1.0",
+    "react": "^15.6.1",
+    "react-animations": "^0.1.0",
+    "react-dom": "^15.6.1",
+    "react-grid-layout": "^0.14.4",
+    "react-hot-loader": "3.0.0-beta.6",
+    "react-icons": "^2.2.5",
+    "react-tooltip": "^3.3.0",
+    "source-map-support": "^0.4.15",
+    "styled-components": "^1.4.4"
+  },
+  "devEngines": {
+    "node": ">=7.x",
+    "npm": ">=4.x",
+    "yarn": ">=0.21.3"
+  }
+}

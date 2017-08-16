@@ -1,0 +1,35 @@
+os: unstable
+
+environment:
+  matrix:
+    - nodejs_version: 8
+    - nodejs_version: 7
+
+cache:
+  - "%LOCALAPPDATA%/Yarn"
+  - node_modules -> package.json
+  - app/node_modules -> app/package.json
+
+matrix:
+  fast_finish: true
+
+build: off
+
+version: '{build}'
+
+shallow_clone: true
+
+clone_depth: 1
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - set CI=true
+  - yarn
+  - cd app && yarn
+
+test_script:
+  - node --version
+  - yarn lint
+  - yarn package
+  - yarn test
+  - yarn test-e2e

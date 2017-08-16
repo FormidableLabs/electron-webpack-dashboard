@@ -1,0 +1,12 @@
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Alert" transform="translate(-2.000000, 2.000000)">
+            <circle id="Oval-3" stroke="#F36666" stroke-width="2" cx="9.5" cy="5.5" r="6.5"></circle>
+            <text id="!" transform="translate(9.500000, 5.500000) rotate(-360.000000) translate(-9.500000, -5.500000) " font-family="Menlo-Bold, Menlo" font-size="8" font-weight="bold" fill="#F36666">
+                <tspan x="7.09179688" y="8">!</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

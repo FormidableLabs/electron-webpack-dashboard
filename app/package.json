@@ -1,0 +1,15 @@
+{
+  "name": "webpack-dashboard-app",
+  "productName": "webpack-dashboard-app",
+  "version": "1.0.0",
+  "description": "Webpack Dashboard",
+  "main": "./main.prod.js",
+  "license": "MIT",
+  "dependencies": {
+    "socket.io": "1.7.3"
+  },
+  "author": "Ken Wheeler <thekenwheeler@gmail.com>",
+  "scripts": {
+    "postinstall": "npm rebuild --runtime=electron --target=1.6.6 --disturl=https://atom.io/download/atom-shell --build-from-source"
+  }
+}
