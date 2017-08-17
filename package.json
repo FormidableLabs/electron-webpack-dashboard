@@ -2,7 +2,7 @@
   "name": "webpack-dashboard-app",
   "productName": "WebpackDashboard",
   "appId": "org.formidable.WebpackDashboard",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1-beta.3",
   "description": "Webpack Dashboard app interface",
   "main": "main.js",
   "author": "Ken Wheeler <thekenwheeler@gmail.com>",
@@ -22,6 +22,7 @@
     "package-all": "npm run build && build -mwl",
     "package-linux": "npm run build && build --linux",
     "package-win": "npm run build && build --win --x64",
+    "package-publish": "npm run build && build -mwl --publish=always",
     "postinstall": "concurrently \"npm run flow-typed\" \"npm run build-dll\" \"electron-builder install-app-deps\" \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\"",
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production electron ./app/",
@@ -59,14 +60,22 @@
       ]
     },
     "win": {
-      "target": ["nsis"]
+      "target": [
+        "nsis"
+      ]
     },
     "linux": {
-      "target": ["deb", "AppImage"]
+      "target": [
+        "deb",
+        "AppImage"
+      ]
     },
     "directories": {
       "buildResources": "resources",
       "output": "release"
+    },
+    "publish": {
+      "provider": "github"
     }
   },
   "license": "MIT",
@@ -90,12 +99,19 @@
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/fileMock.js",
       "\\.(css|less|sass|scss)$": "identity-obj-proxy"
     },
-    "moduleFileExtensions": ["js"],
-    "moduleDirectories": ["node_modules", "app/node_modules"],
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "app/node_modules"
+    ],
     "transform": {
       "^.+\\.js$": "babel-jest"
     },
-    "setupFiles": ["./internals/scripts/CheckBuiltsExist.js"]
+    "setupFiles": [
+      "./internals/scripts/CheckBuiltsExist.js"
+    ]
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
@@ -123,6 +139,7 @@
     "electron": "^1.6.10",
     "electron-builder": "^19.8.0",
     "electron-devtools-installer": "^2.2.0",
+    "electron-updater": "^2.8.7",
     "enzyme": "^2.9.1",
     "enzyme-to-json": "^1.5.1",
     "eslint": "^3.19.0",
@@ -175,11 +192,13 @@
     "d3-scale-chromatic": "^1.1.1",
     "devtron": "^1.4.0",
     "electron-debug": "^1.2.0",
+    "electron-is-dev": "^0.3.0",
     "electron-json-storage": "^3.0.7",
     "font-awesome": "^4.7.0",
     "handlebars": "^4.0.10",
     "history": "^4.6.3",
     "lodash": "^4.17.4",
+    "node-notifier": "^5.1.2",
     "prop-types": "^15.5.10",
     "rc-progress": "^2.1.0",
     "react": "^15.6.1",

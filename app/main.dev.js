@@ -11,6 +11,10 @@
  * @flow
  */
 import { app, BrowserWindow } from 'electron';
+import { autoUpdater } from 'electron-updater';
+import notifier from 'node-notifier';
+import isDev from 'electron-is-dev';
+
 import MenuBuilder from './menu';
 
 let mainWindow = null;
@@ -39,6 +43,44 @@ const installExtensions = async () => {
     extensions.map(name => installer.default(installer[name], forceDownload))
   ).catch(console.log);
 };
+
+function initAutoUpdate() {
+  if (isDev) {
+    return;
+  }
+
+  if (process.platform === 'linux') {
+    return;
+  }
+
+  autoUpdater.checkForUpdates();
+  autoUpdater.signals.updateDownloaded(showUpdateNotification);
+}
+
+function showUpdateNotification(it) {
+  it = it || {};
+  const restartNowAction = 'Restart now';
+
+  const versionLabel = it.label
+    ? `Version ${it.version}`
+    : 'The latest version';
+
+  notifier.notify(
+    {
+      title: 'A new update is ready to install.',
+      message: `${versionLabel} has been downloaded and will be automatically installed after restart.`,
+      closeLabel: 'Okay',
+      actions: restartNowAction,
+    },
+    (err, response, metadata) => {
+      if (err) throw err;
+      if (metadata.activationValue !== restartNowAction) {
+        return;
+      }
+      autoUpdater.quitAndInstall();
+    }
+  );
+}
 
 /**
  * Add event listeners...
@@ -76,6 +118,8 @@ app.on('ready', async () => {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
+
+  initAutoUpdate();
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();

@@ -1,7 +1,7 @@
 {
   "name": "webpack-dashboard-app",
   "productName": "webpack-dashboard-app",
-  "version": "1.0.0",
+  "version": "0.0.1-beta.3",
   "description": "Webpack Dashboard",
   "main": "./main.prod.js",
   "license": "MIT",
