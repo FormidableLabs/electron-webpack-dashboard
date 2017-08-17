@@ -24,11 +24,9 @@ The original dashboard felt like working at NASA. 50 years ago. I hope this dash
 
 ### Install
 
-Download for Mac: [Webpack.Dashboard-1.0.0.dmg](https://github.com/FormidableLabs/electron-webpack-dashboard/releases/download/0.0.1-beta.1/Webpack.Dashboard-1.0.0.dmg)
+Download the version for your OS here:
 
-Download for Windows: [Webpack.Dashboard.Setup.1.0.0.exe](https://github.com/FormidableLabs/electron-webpack-dashboard/releases/download/0.0.1-beta.1/Webpack.Dashboard.Setup.1.0.0.exe)
-
-Download for Linux: [webpack-dashboard-app_1.0.0_amd64.deb](https://github.com/FormidableLabs/electron-webpack-dashboard/releases/download/0.0.1-beta.1/webpack-dashboard-app_1.0.0_amd64.deb)
+[https://github.com/FormidableLabs/electron-webpack-dashboard/releases/latest](https://github.com/FormidableLabs/electron-webpack-dashboard/releases/latest)
 
 ### Configuring Your Project
 
