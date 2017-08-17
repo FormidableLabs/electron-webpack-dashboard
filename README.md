@@ -28,6 +28,8 @@ Download for Mac: [Webpack.Dashboard-1.0.0.dmg](https://github.com/FormidableLab
 
 Download for Windows: [Webpack.Dashboard.Setup.1.0.0.exe](https://github.com/FormidableLabs/electron-webpack-dashboard/releases/download/0.0.1-beta.1/Webpack.Dashboard.Setup.1.0.0.exe)
 
+Download for Linux: [webpack-dashboard-app_1.0.0_amd64.deb](https://github.com/FormidableLabs/electron-webpack-dashboard/releases/download/0.0.1-beta.1/webpack-dashboard-app_1.0.0_amd64.deb)
+
 ### Configuring Your Project
 
 First, in your project, install the `webpack-dashboard` beta release:
