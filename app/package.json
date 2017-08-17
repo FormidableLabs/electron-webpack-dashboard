@@ -1,11 +1,13 @@
 {
   "name": "webpack-dashboard-app",
   "productName": "webpack-dashboard-app",
-  "version": "0.0.1-beta.3",
+  "version": "0.1.0-beta.1",
   "description": "Webpack Dashboard",
   "main": "./main.prod.js",
   "license": "MIT",
   "dependencies": {
+    "electron-updater": "^2.8.7",
+    "node-notifier": "^5.1.2",
     "socket.io": "1.7.3"
   },
   "author": "Ken Wheeler <thekenwheeler@gmail.com>",

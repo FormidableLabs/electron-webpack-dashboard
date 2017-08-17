@@ -53,8 +53,8 @@ function initAutoUpdate() {
     return;
   }
 
+  autoUpdater.on('update-downloaded', showUpdateNotification);
   autoUpdater.checkForUpdates();
-  autoUpdater.signals.updateDownloaded(showUpdateNotification);
 }
 
 function showUpdateNotification(it) {
