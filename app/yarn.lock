@@ -13,6 +13,12 @@ after@0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/after/-/after-0.8.2.tgz#fedb394f9f0e02aa9768e702bda23b505fae7e1f"
 
+argparse@^1.0.7:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/argparse/-/argparse-1.0.9.tgz#73d83bc263f86e97f8cc4f6bae1b0e90a7d22c86"
+  dependencies:
+    sprintf-js "~1.0.2"
+
 arraybuffer.slice@0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/arraybuffer.slice/-/arraybuffer.slice-0.0.6.tgz#f33b2159f0532a3f3107a272c0ccfbd1ad2979ca"
@@ -38,6 +44,16 @@ better-assert@~1.0.0:
 blob@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/blob/-/blob-0.0.4.tgz#bcf13052ca54463f30f9fc7e95b9a47630a94921"
+
+bluebird-lst@^1.0.2, bluebird-lst@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/bluebird-lst/-/bluebird-lst-1.0.3.tgz#cc56c18660eff0a0b86e2c33d1659618f7005158"
+  dependencies:
+    bluebird "^3.5.0"
+
+bluebird@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
 
 callsite@1.0.0:
   version "1.0.0"
@@ -74,6 +90,41 @@ debug@2.3.3:
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.3.3.tgz#40c453e67e6e13c901ddec317af8986cda9eff8c"
   dependencies:
     ms "0.7.2"
+
+debug@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-3.0.0.tgz#1d2feae53349047b08b264ec41906ba17a8516e4"
+  dependencies:
+    ms "2.0.0"
+
+electron-builder-http@~19.21.0:
+  version "19.21.0"
+  resolved "https://registry.yarnpkg.com/electron-builder-http/-/electron-builder-http-19.21.0.tgz#3e812f030fddb5eaebcc26303f7bca1a34e1da76"
+  dependencies:
+    bluebird-lst "^1.0.3"
+    debug "^3.0.0"
+    fs-extra-p "^4.4.0"
+
+electron-is-dev@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/electron-is-dev/-/electron-is-dev-0.3.0.tgz#14e6fda5c68e9e4ecbeff9ccf037cbd7c05c5afe"
+
+electron-updater@^2.8.7:
+  version "2.8.7"
+  resolved "https://registry.yarnpkg.com/electron-updater/-/electron-updater-2.8.7.tgz#139c34382bea26701c6ef82db457268b08f071a1"
+  dependencies:
+    bluebird-lst "^1.0.3"
+    debug "^3.0.0"
+    electron-builder-http "~19.21.0"
+    electron-is-dev "^0.3.0"
+    fs-extra-p "^4.4.0"
+    js-yaml "^3.9.1"
+    lazy-val "^1.0.2"
+    lodash.isequal "^4.5.0"
+    semver "^5.4.1"
+    source-map-support "^0.4.15"
+    uuid-1345 "^0.99.6"
+    xelement "^1.0.16"
 
 engine.io-client@1.8.3:
   version "1.8.3"
@@ -114,6 +165,33 @@ engine.io@1.8.3:
     engine.io-parser "1.3.2"
     ws "1.1.2"
 
+esprima@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/esprima/-/esprima-4.0.0.tgz#4499eddcd1110e0b218bacf2fa7f7f59f55ca804"
+
+fs-extra-p@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/fs-extra-p/-/fs-extra-p-4.4.0.tgz#729c601c4f4c701328921adc7cfe9b236f100660"
+  dependencies:
+    bluebird-lst "^1.0.2"
+    fs-extra "^4.0.0"
+
+fs-extra@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-4.0.1.tgz#7fc0c6c8957f983f57f306a24e5b9ddd8d0dd880"
+  dependencies:
+    graceful-fs "^4.1.2"
+    jsonfile "^3.0.0"
+    universalify "^0.1.0"
+
+graceful-fs@^4.1.2, graceful-fs@^4.1.6:
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
+
+growly@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
+
 has-binary@0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/has-binary/-/has-binary-0.1.7.tgz#68e61eb16210c9545a0a5cce06a873912fe1e68c"
@@ -132,9 +210,38 @@ isarray@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-0.0.1.tgz#8a18acfca9a8f4177e09abfc6038939b05d1eedf"
 
+isexe@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
+
+js-yaml@^3.9.1:
+  version "3.9.1"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.9.1.tgz#08775cebdfdd359209f0d2acd383c8f86a6904a0"
+  dependencies:
+    argparse "^1.0.7"
+    esprima "^4.0.0"
+
 json3@3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/json3/-/json3-3.3.2.tgz#3c0434743df93e2f5c42aee7b19bcb483575f4e1"
+
+jsonfile@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/jsonfile/-/jsonfile-3.0.1.tgz#a5ecc6f65f53f662c4415c7675a0331d0992ec66"
+  optionalDependencies:
+    graceful-fs "^4.1.6"
+
+lazy-val@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/lazy-val/-/lazy-val-1.0.2.tgz#d9b07fb1fce54cbc99b3c611de431b83249369b6"
+
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+
+macaddress@^0.2.7:
+  version "0.2.8"
+  resolved "https://registry.yarnpkg.com/macaddress/-/macaddress-0.2.8.tgz#5904dc537c39ec6dbefeae902327135fa8511f12"
 
 mime-db@~1.29.0:
   version "1.29.0"
@@ -154,9 +261,22 @@ ms@0.7.2:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
 
+ms@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
+
 negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
+
+node-notifier@^5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/node-notifier/-/node-notifier-5.1.2.tgz#2fa9e12605fa10009d44549d6fcd8a63dde0e4ff"
+  dependencies:
+    growly "^1.3.0"
+    semver "^5.3.0"
+    shellwords "^0.1.0"
+    which "^1.2.12"
 
 object-assign@4.1.0:
   version "4.1.0"
@@ -187,6 +307,18 @@ parseuri@0.0.5:
   resolved "https://registry.yarnpkg.com/parseuri/-/parseuri-0.0.5.tgz#80204a50d4dbb779bfdc6ebe2778d90e4bce320a"
   dependencies:
     better-assert "~1.0.0"
+
+sax@^1.2.1:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
+
+semver@^5.3.0, semver@^5.4.1:
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.4.1.tgz#e059c09d8571f0540823733433505d3a2f00b18e"
+
+shellwords@^0.1.0:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
 
 socket.io-adapter@0.5.0:
   version "0.5.0"
@@ -232,6 +364,20 @@ socket.io@1.7.3:
     socket.io-client "1.7.3"
     socket.io-parser "2.3.1"
 
+source-map-support@^0.4.15:
+  version "0.4.16"
+  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.16.tgz#16fecf98212467d017d586a2af68d628b9421cd8"
+  dependencies:
+    source-map "^0.5.6"
+
+source-map@^0.5.6:
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.6.tgz#75ce38f52bf0733c5a7f0c118d81334a2bb5f412"
+
+sprintf-js@~1.0.2:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
+
 to-array@0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/to-array/-/to-array-0.1.4.tgz#17e6c11f73dd4f3d74cda7a4ff3238e9ad9bf890"
@@ -239,6 +385,22 @@ to-array@0.1.4:
 ultron@1.0.x:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.0.2.tgz#ace116ab557cd197386a4e88f4685378c8b2e4fa"
+
+universalify@^0.1.0:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/universalify/-/universalify-0.1.1.tgz#fa71badd4437af4c148841e3b3b165f9e9e590b7"
+
+uuid-1345@^0.99.6:
+  version "0.99.6"
+  resolved "https://registry.yarnpkg.com/uuid-1345/-/uuid-1345-0.99.6.tgz#b1270ae015a7721c7adec6c46ec169c6098aed40"
+  dependencies:
+    macaddress "^0.2.7"
+
+which@^1.2.12:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/which/-/which-1.3.0.tgz#ff04bdfc010ee547d780bec38e1ac1c2777d253a"
+  dependencies:
+    isexe "^2.0.0"
 
 ws@1.1.2:
   version "1.1.2"
@@ -250,6 +412,12 @@ ws@1.1.2:
 wtf-8@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/wtf-8/-/wtf-8-1.0.0.tgz#392d8ba2d0f1c34d1ee2d630f15d0efb68e1048a"
+
+xelement@^1.0.16:
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/xelement/-/xelement-1.0.16.tgz#900bb46c20fc2dffadff778a9d2dc36699d0ff7e"
+  dependencies:
+    sax "^1.2.1"
 
 xmlhttprequest-ssl@1.5.3:
   version "1.5.3"

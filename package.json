@@ -2,7 +2,7 @@
   "name": "webpack-dashboard-app",
   "productName": "WebpackDashboard",
   "appId": "org.formidable.WebpackDashboard",
-  "version": "0.0.1-beta.1",
+  "version": "0.1.0-beta.2",
   "description": "Webpack Dashboard app interface",
   "main": "main.js",
   "author": "Ken Wheeler <thekenwheeler@gmail.com>",
@@ -22,6 +22,7 @@
     "package-all": "npm run build && build -mwl",
     "package-linux": "npm run build && build --linux",
     "package-win": "npm run build && build --win --x64",
+    "package-publish": "npm run build && build -mwl --publish=always",
     "postinstall": "concurrently \"npm run flow-typed\" \"npm run build-dll\" \"electron-builder install-app-deps\" \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\"",
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production electron ./app/",
@@ -44,6 +45,9 @@
       "main.prod.js.map",
       "package.json"
     ],
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    },
     "dmg": {
       "contents": [
         {
@@ -67,6 +71,9 @@
     "directories": {
       "buildResources": "resources",
       "output": "release"
+    },
+    "publish": {
+      "provider": "github"
     }
   },
   "license": "MIT",
@@ -121,7 +128,7 @@
     "cross-spawn": "^5.1.0",
     "css-loader": "^0.28.3",
     "electron": "^1.6.10",
-    "electron-builder": "^19.8.0",
+    "electron-builder": "^19.22.1",
     "electron-devtools-installer": "^2.2.0",
     "enzyme": "^2.9.1",
     "enzyme-to-json": "^1.5.1",
@@ -175,6 +182,7 @@
     "d3-scale-chromatic": "^1.1.1",
     "devtron": "^1.4.0",
     "electron-debug": "^1.2.0",
+    "electron-is-dev": "^0.3.0",
     "electron-json-storage": "^3.0.7",
     "font-awesome": "^4.7.0",
     "handlebars": "^4.0.10",
