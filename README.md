@@ -28,6 +28,12 @@ Download the version for your OS here:
 
 [https://github.com/FormidableLabs/electron-webpack-dashboard/releases/latest](https://github.com/FormidableLabs/electron-webpack-dashboard/releases/latest)
 
+If you are on OSX you also install the App via [Homebrew Cask](https://caskroom.github.io/):
+
+```bash
+$ brew cask install webpack-dashboard
+```
+
 ### Configuring Your Project
 
 First, in your project, install the `webpack-dashboard` beta release:
