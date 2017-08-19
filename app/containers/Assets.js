@@ -2,10 +2,10 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
-import ReactTooltip from 'react-tooltip';
 
 import { formatAssets } from '../util/format-assets';
 import Text from '../components/Text';
+import Error from '../components/Error';
 import Loading from '../components/Loading';
 
 const fadeInAnimation = keyframes`${fadeIn}`;
@@ -29,7 +29,7 @@ const ErrorText = styled(Text)`
 
 class Assets extends React.PureComponent {
   render() {
-    const { stats, sizes, loading } = this.props;
+    const { stats, sizes, loading, sizesError } = this.props;
     if (loading) {
       return (
         <Container>
@@ -37,10 +37,14 @@ class Assets extends React.PureComponent {
         </Container>
       );
     }
-    if (stats && sizes) {
+    if (stats) {
       const assets = formatAssets(stats, sizes);
       return (
         <Container>
+          {sizesError &&
+            <Error data-tip={sizesError.message} data-effect="float">
+              Error calculating minified sizes!
+            </Error>}
           <table>
             <tbody>
               {assets.map(asset => {
@@ -70,7 +74,6 @@ class Assets extends React.PureComponent {
               })}
             </tbody>
           </table>
-          <ReactTooltip place="top" type="error" effect="solid" />
         </Container>
       );
     }

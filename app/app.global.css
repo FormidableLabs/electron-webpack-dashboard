@@ -19,6 +19,7 @@ body {
 
 table {
   border-collapse: collapse;
+  table-layout: fixed;
 }
 table td {
   word-wrap: break-word;

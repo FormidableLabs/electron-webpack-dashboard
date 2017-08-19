@@ -26,23 +26,38 @@ export default function handleSocketData(data, effects) {
     }
 
     if (d.type === 'sizes') {
-      state = {
-        ...state,
-        sizes: d.value,
-        assetsLoading: false,
-      };
+      state = d.error
+        ? {
+            ...state,
+            assetsLoading: false,
+            sizesError: d.value,
+          }
+        : {
+            ...state,
+            sizes: d.value,
+            assetsLoading: false,
+            sizesError: false,
+          };
     }
 
     if (d.type === 'problems') {
-      state = {
-        ...state,
-        problems: d.value,
-        problemsLoading: false,
-      };
+      state = d.error
+        ? {
+            ...state,
+            problems: d.value,
+            problemsLoading: false,
+            problemsError: true,
+          }
+        : {
+            ...state,
+            problems: d.value,
+            problemsLoading: false,
+            problemsError: false,
+          };
     }
 
     if (d.type === 'status') {
-      if (d.value === 'Invalidated') {
+      if (d.value === 'Compiling') {
         state = {
           ...state,
           modulesLoading: true,

@@ -2,6 +2,7 @@
 import React from 'react';
 import SocketIO from 'socket.io';
 import { shell } from 'electron';
+import ReactTooltip from 'react-tooltip';
 
 import handleSocketData from '../util/handleSocketData';
 
@@ -25,8 +26,10 @@ class Body extends React.PureComponent {
     assets: null,
     chartData: null,
     problems: [],
+    problemsError: false,
     progress: 0,
     sizes: null,
+    sizesError: false,
     stats: {},
     status: 'idle',
     operations: '',
@@ -102,6 +105,7 @@ class Body extends React.PureComponent {
               Formidable
             </a>
           </BoxHeader>
+          <ReactTooltip place="top" type="error" effect="solid" />
         </Container>
       );
     }
@@ -130,6 +134,7 @@ class Body extends React.PureComponent {
                   stats={this.state.stats.data}
                   sizes={this.state.sizes}
                   loading={this.state.modulesLoading}
+                  sizesError={this.state.sizesError}
                 />
               </Box>
               <Box>
@@ -138,12 +143,14 @@ class Body extends React.PureComponent {
                   stats={this.state.stats.data}
                   sizes={this.state.sizes}
                   loading={this.state.assetsLoading}
+                  sizesError={this.state.sizesError}
                 />
               </Box>
               <Box>
                 <BoxHeader>Problems</BoxHeader>
                 <Problems
                   problems={this.state.problems}
+                  problemsError={this.state.problemsError}
                   loading={this.state.problemsLoading}
                 />
               </Box>
@@ -160,6 +167,7 @@ class Body extends React.PureComponent {
                 Formidable
               </a>
             </BoxHeader>
+            <ReactTooltip place="top" type="error" effect="solid" />
           </Container>
         );
       case 'medium':
@@ -186,6 +194,7 @@ class Body extends React.PureComponent {
                   stats={this.state.stats.data}
                   sizes={this.state.sizes}
                   loading={this.state.modulesLoading}
+                  sizesError={this.state.sizesError}
                 />
               </Box>
               <Box>
@@ -194,12 +203,14 @@ class Body extends React.PureComponent {
                   stats={this.state.stats.data}
                   sizes={this.state.sizes}
                   loading={this.state.assetsLoading}
+                  sizesError={this.state.sizesError}
                 />
               </Box>
               <Box>
                 <BoxHeader>Problems</BoxHeader>
                 <Problems
                   problems={this.state.problems}
+                  problemsError={this.state.problemsError}
                   loading={this.state.problemsLoading}
                 />
               </Box>
@@ -216,6 +227,7 @@ class Body extends React.PureComponent {
                 Formidable
               </a>
             </BoxHeader>
+            <ReactTooltip place="top" type="error" effect="solid" />
           </Container>
         );
       default:
@@ -248,6 +260,7 @@ class Body extends React.PureComponent {
                 stats={this.state.stats.data}
                 sizes={this.state.sizes}
                 loading={this.state.modulesLoading}
+                sizesError={this.state.sizesError}
               />
             </Box>
             <Box style={{ flex: '1 1 100%', height: 350 }}>
@@ -256,12 +269,14 @@ class Body extends React.PureComponent {
                 stats={this.state.stats.data}
                 sizes={this.state.sizes}
                 loading={this.state.assetsLoading}
+                sizesError={this.state.sizesError}
               />
             </Box>
             <Box style={{ flex: '1 1 100%', height: 350 }}>
               <BoxHeader>Problems</BoxHeader>
               <Problems
                 problems={this.state.problems}
+                problemsError={this.state.problemsError}
                 loading={this.state.problemsLoading}
               />
             </Box>
@@ -277,6 +292,7 @@ class Body extends React.PureComponent {
                 Formidable
               </a>
             </BoxHeader>
+            <ReactTooltip place="top" type="error" effect="solid" />
           </Container>
         );
     }

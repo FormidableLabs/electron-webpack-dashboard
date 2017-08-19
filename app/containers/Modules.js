@@ -7,6 +7,7 @@ import _ from 'lodash/fp';
 
 import { formatModules } from '../util/format-modules';
 import Text from '../components/Text';
+import Error from '../components/Error';
 import Loading from '../components/Loading';
 
 const fadeInAnimation = keyframes`${fadeIn}`;
@@ -25,7 +26,7 @@ const Container = styled.div`
 
 class Modules extends React.PureComponent {
   render() {
-    const { stats, loading } = this.props;
+    const { stats, loading, sizesError } = this.props;
     if (loading) {
       return (
         <Container>
@@ -37,6 +38,10 @@ class Modules extends React.PureComponent {
       const modules = formatModules(stats);
       return (
         <Container>
+          {sizesError &&
+            <Error data-tip={sizesError.message} data-effect="float">
+              Error calculating minified sizes!
+            </Error>}
           <table>
             <tbody>
               {modules.map(module => {

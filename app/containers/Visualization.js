@@ -13,7 +13,7 @@ const Tooltip = styled.div`
   background: rgba(0, 0, 0, 0.25);
   border-radius: 500px;
   padding: 10px 30px;
-  margin: 10px;
+  margin: 20px auto 0px;
 `;
 
 const TooltipText = styled.span`
@@ -87,14 +87,12 @@ class Visualization extends React.PureComponent {
           />
           <div
             style={{
-              flex: 0,
+              flex: '0 0 auto',
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
             }}
           >
             <Tooltip id="d3-tooltip">
-              <TooltipText id="d3-tooltip-text" />
+              <TooltipText id="d3-tooltip-text">No Selection</TooltipText>
             </Tooltip>
           </div>
         </div>

@@ -7,6 +7,7 @@ import _ from 'lodash/fp';
 
 import { formatProblems } from '../util/format-problems';
 import Text from '../components/Text';
+import Error from '../components/Error';
 import Loading from '../components/Loading';
 
 const fadeInAnimation = keyframes`${fadeIn}`;
@@ -41,11 +42,20 @@ const createMarkup = problems => ({
 
 class Problems extends React.PureComponent {
   render() {
-    const { problems, loading } = this.props;
+    const { problems, problemsError, loading } = this.props;
     if (loading) {
       return (
         <ProblemContainer>
           <Loading />
+        </ProblemContainer>
+      );
+    }
+    if (problemsError) {
+      return (
+        <ProblemContainer>
+          <Error data-tip={problems.message} data-effect="float">
+            Error analyzing bundle!
+          </Error>
         </ProblemContainer>
       );
     }

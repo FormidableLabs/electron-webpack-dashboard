@@ -32,7 +32,7 @@ Download the version for your OS here:
 
 First, in your project, install the `webpack-dashboard` beta release:
 
-`npm install webpack-dashboard@v1.0.0-2 --save-dev`
+`npm install webpack-dashboard@next --save-dev`
 
 Next, in any Webpack config you want telemetry on, import the plugin:
 
