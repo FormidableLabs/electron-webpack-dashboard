@@ -1,6 +1,8 @@
 // @flow
 import { app, Menu, shell, BrowserWindow } from 'electron';
 
+const webpackDashboardTitle = 'Webpack Dashboard';
+
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
 
@@ -47,11 +49,11 @@ export default class MenuBuilder {
     const subMenuAbout = {
       label: 'Electron',
       submenu: [
-        { label: 'About ElectronReact', selector: 'orderFrontStandardAboutPanel:' },
+        { label: `About ${webpackDashboardTitle}`, selector: 'orderFrontStandardAboutPanel:' },
         { type: 'separator' },
         { label: 'Services', submenu: [] },
         { type: 'separator' },
-        { label: 'Hide ElectronReact', accelerator: 'Command+H', selector: 'hide:' },
+        { label: `Hide ${webpackDashboardTitle}`, accelerator: 'Command+H', selector: 'hide:' },
         { label: 'Hide Others', accelerator: 'Command+Shift+H', selector: 'hideOtherApplications:' },
         { label: 'Show All', selector: 'unhideAllApplications:' },
         { type: 'separator' },

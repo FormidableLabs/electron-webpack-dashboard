@@ -45,6 +45,9 @@
       "main.prod.js.map",
       "package.json"
     ],
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    },
     "dmg": {
       "contents": [
         {
@@ -125,7 +128,7 @@
     "cross-spawn": "^5.1.0",
     "css-loader": "^0.28.3",
     "electron": "^1.6.10",
-    "electron-builder": "^19.8.0",
+    "electron-builder": "^19.22.1",
     "electron-devtools-installer": "^2.2.0",
     "enzyme": "^2.9.1",
     "enzyme-to-json": "^1.5.1",
