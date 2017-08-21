@@ -4,8 +4,6 @@ import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
 import { Line } from 'rc-progress';
 
-import { formatModules } from '../util/format-modules';
-import { formatMinModules } from '../util/format-min-modules';
 import Text from '../components/Text';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
@@ -37,8 +35,8 @@ const BundleName = styled.p`
 
 class Modules extends React.PureComponent {
   render() {
-    const { stats, sizes, loading, sizesError } = this.props;
-    let modules;
+    const { modules, moduleSizes, loading, sizesError } = this.props;
+    let target;
 
     if (loading) {
       return (
@@ -48,19 +46,19 @@ class Modules extends React.PureComponent {
       );
     }
 
-    if (stats) {
-      if (sizes) {
-        modules = formatMinModules(sizes);
+    if (modules) {
+      if (moduleSizes) {
+        target = moduleSizes;
         return (
           <Container>
-            {Object.keys(modules).map(m =>
+            {Object.keys(target).map(m =>
               <div key={m}>
                 <BundleName>
                   {m} (estimated min+gz):
                 </BundleName>
                 <table>
                   <tbody>
-                    {modules[m].map(module => {
+                    {target[m].map(module => {
                       if (module[0] === '<self>') return null;
                       return (
                         <tr key={module[0]}>
@@ -95,7 +93,7 @@ class Modules extends React.PureComponent {
           </Container>
         );
       }
-      modules = formatModules(stats);
+      target = modules;
       return (
         <Container>
           {sizesError &&

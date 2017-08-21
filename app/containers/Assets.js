@@ -3,7 +3,6 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
 
-import { formatAssets } from '../util/format-assets';
 import Text from '../components/Text';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
@@ -29,7 +28,7 @@ const ErrorText = styled(Text)`
 
 class Assets extends React.PureComponent {
   render() {
-    const { stats, sizes, loading, sizesError } = this.props;
+    const { assets, assetSizes, loading, sizesError } = this.props;
     if (loading) {
       return (
         <Container>
@@ -37,8 +36,8 @@ class Assets extends React.PureComponent {
         </Container>
       );
     }
-    if (stats) {
-      const assets = formatAssets(stats, sizes);
+    if (assets) {
+      const target = assetSizes || assets;
       return (
         <Container>
           {sizesError &&
@@ -47,7 +46,7 @@ class Assets extends React.PureComponent {
             </Error>}
           <table>
             <tbody>
-              {assets.map(asset => {
+              {target.map(asset => {
                 const largeAsset = asset[1] > 250000;
                 const SizeText = largeAsset ? ErrorText : ColorText;
                 return (

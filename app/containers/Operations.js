@@ -4,9 +4,6 @@ import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
 import { Circle } from 'rc-progress';
 
-import { getTotalAssetSize, getAssetsFormat } from '../util/format-assets';
-import { getTotalModuleSize } from '../util/format-modules';
-import { getTotalMinModuleSize } from '../util/format-min-modules';
 import BoxHeader from '../components/BoxHeader';
 
 const fadeInAnimation = keyframes`${fadeIn}`;
@@ -97,16 +94,17 @@ const BigProgressText = styled.h1`
 
 class Operations extends React.PureComponent {
   render() {
-    const { status, stats, progress, sizes } = this.props;
-    const statSize =
-      stats.data && sizes
-        ? getTotalAssetSize(getAssetsFormat(stats, sizes))
-        : '---';
-    const moduleSize = stats.data
-      ? sizes
-        ? getTotalMinModuleSize(sizes)
-        : getTotalModuleSize(stats.data.modules)
-      : '---';
+    const {
+      totalAssetSizes,
+      totalModuleSizes,
+      totalAssetMinSizes,
+      totalModuleMinSizes,
+      progress,
+      status,
+      stats,
+    } = this.props;
+    const statSize = totalAssetMinSizes || totalAssetSizes || '---';
+    const moduleSize = totalModuleMinSizes || totalModuleSizes || '---';
 
     return (
       <Container>
