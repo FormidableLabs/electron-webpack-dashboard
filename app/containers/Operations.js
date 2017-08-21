@@ -6,6 +6,7 @@ import { Circle } from 'rc-progress';
 
 import { getTotalAssetSize, getAssetsFormat } from '../util/format-assets';
 import { getTotalModuleSize } from '../util/format-modules';
+import { getTotalMinModuleSize } from '../util/format-min-modules';
 import BoxHeader from '../components/BoxHeader';
 
 const fadeInAnimation = keyframes`${fadeIn}`;
@@ -102,7 +103,9 @@ class Operations extends React.PureComponent {
         ? getTotalAssetSize(getAssetsFormat(stats, sizes))
         : '---';
     const moduleSize = stats.data
-      ? getTotalModuleSize(stats.data.modules)
+      ? sizes
+        ? getTotalMinModuleSize(sizes)
+        : getTotalModuleSize(stats.data.modules)
       : '---';
 
     return (

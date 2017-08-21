@@ -3,9 +3,9 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
 import { Line } from 'rc-progress';
-import _ from 'lodash/fp';
 
 import { formatModules } from '../util/format-modules';
+import { formatMinModules } from '../util/format-min-modules';
 import Text from '../components/Text';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
@@ -24,9 +24,22 @@ const Container = styled.div`
   height: calc(100% - 27px);
 `;
 
+const BundleName = styled.p`
+  font-family: 'montserratlight';
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #6c7082;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  height: auto;
+  text-transform: uppercase;
+`;
+
 class Modules extends React.PureComponent {
   render() {
-    const { stats, loading, sizesError } = this.props;
+    const { stats, sizes, loading, sizesError } = this.props;
+    let modules;
+
     if (loading) {
       return (
         <Container>
@@ -34,8 +47,55 @@ class Modules extends React.PureComponent {
         </Container>
       );
     }
+
     if (stats) {
-      const modules = formatModules(stats);
+      if (sizes) {
+        modules = formatMinModules(sizes);
+        return (
+          <Container>
+            {Object.keys(modules).map(m =>
+              <div key={m}>
+                <BundleName>
+                  {m} (estimated min+gz):
+                </BundleName>
+                <table>
+                  <tbody>
+                    {modules[m].map(module => {
+                      if (module[0] === '<self>') return null;
+                      return (
+                        <tr key={module[0]}>
+                          <td>
+                            <Text>
+                              {module[0]}
+                            </Text>
+                          </td>
+                          <td style={{ paddingLeft: 20, whiteSpace: 'nowrap' }}>
+                            <ColorText>
+                              {module[1]}
+                            </ColorText>
+                          </td>
+                          <td style={{ paddingLeft: 20, width: '100%' }}>
+                            <Line
+                              strokeWidth="6"
+                              percent={module[2]}
+                              strokeLinecap="square"
+                              trailWidth="3"
+                              trailColor="transparent"
+                              strokeColor="#00d0ff"
+                              style={{ verticalAlign: 'middle' }}
+                            />
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </Container>
+        );
+      }
+      modules = formatModules(stats);
       return (
         <Container>
           {sizesError &&
@@ -77,6 +137,7 @@ class Modules extends React.PureComponent {
         </Container>
       );
     }
+
     return (
       <Container>
         <Text>NO DATA</Text>

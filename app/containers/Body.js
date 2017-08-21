@@ -49,6 +49,7 @@ class Body extends React.PureComponent {
       this.server.on('connection', socket => {
         socket.on('message', message => {
           this.setState(handleSocketData(message));
+          ReactTooltip.rebuild();
         });
       });
   }
