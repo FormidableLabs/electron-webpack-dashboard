@@ -4,4 +4,5 @@ export default styled.div`
   display: flex;
   flex: 1;
   justify-content: space-around;
+  flex-direction: ${({ size }) => (size === 'small' ? 'column' : 'row')};
 `;

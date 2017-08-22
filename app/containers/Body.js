@@ -92,10 +92,8 @@ class Body extends React.PureComponent {
     shell.openExternal('http://www.formidable.com');
   };
   render() {
-    if (this.props.vizActive) {
-      console.log(this.state);
-      return (
-        <Container>
+    return this.props.vizActive
+      ? <Container>
           <Row>
             <Box style={{ display: 'flex' }} key="viz">
               <Visualization
@@ -120,151 +118,12 @@ class Body extends React.PureComponent {
           </BoxHeader>
           <ReactTooltip place="top" type="error" effect="solid" />
         </Container>
-      );
-    }
-    switch (this.state.breakpoint) {
-      case 'large':
-        return (
-          <Container>
-            <Row>
-              <DoubleBox>
-                <Log log={this.state.log} />
-              </DoubleBox>
-              <Box style={{ display: 'flex' }}>
-                <Operations
-                  stats={this.state.stats}
-                  status={this.state.status}
-                  progress={this.state.progress}
-                  operations={this.state.operations}
-                  totalAssetSizes={this.state.totalAssetSizes}
-                  totalModuleSizes={this.state.totalModuleSizes}
-                  totalAssetMinSizes={this.state.totalAssetMinSizes}
-                  totalModuleMinSizes={this.state.totalModuleMinSizes}
-                />
-              </Box>
-            </Row>
-            <Row>
-              <Box>
-                <BoxHeader>Modules</BoxHeader>
-                <Modules
-                  modules={this.state.modules}
-                  moduleSizes={this.state.moduleSizes}
-                  loading={this.state.modulesLoading}
-                  sizesError={this.state.sizesError}
-                />
-              </Box>
-              <Box>
-                <BoxHeader>Assets</BoxHeader>
-                <Assets
-                  assets={this.state.assets}
-                  assetSizes={this.state.assetSizes}
-                  loading={this.state.assetsLoading}
-                  sizesError={this.state.sizesError}
-                />
-              </Box>
-              <Box>
-                <BoxHeader>Problems</BoxHeader>
-                <Problems
-                  problems={this.state.problems}
-                  problemsError={this.state.problemsError}
-                  loading={this.state.problemsLoading}
-                />
-              </Box>
-            </Row>
-            <BoxHeader
-              style={{ margin: '20px auto 0px', animation: 'none', opacity: 1 }}
-            >
-              Artisanally hand-crafted at{' '}
-              <a
-                style={{ color: '#00bdff' }}
-                href="javascript:void(0)"
-                onClick={this.openUrl}
-              >
-                Formidable
-              </a>
-            </BoxHeader>
-            <ReactTooltip place="top" type="error" effect="solid" />
-          </Container>
-        );
-      case 'medium':
-        return (
-          <Container>
-            <Row>
-              <Box style={{ display: 'flex', padding: 0, flex: '1 1 60px' }}>
-                <Log log={this.state.log} />
-              </Box>
-              <Box style={{ display: 'flex' }}>
-                <Operations
-                  stats={this.state.stats}
-                  status={this.state.status}
-                  progress={this.state.progress}
-                  operations={this.state.operations}
-                  totalAssetSizes={this.state.totalAssetSizes}
-                  totalModuleSizes={this.state.totalModuleSizes}
-                  totalAssetMinSizes={this.state.totalAssetMinSizes}
-                  totalModuleMinSizes={this.state.totalModuleMinSizes}
-                />
-              </Box>
-            </Row>
-            <Row>
-              <Box>
-                <BoxHeader>Modules</BoxHeader>
-                <Modules
-                  modules={this.state.modules}
-                  moduleSizes={this.state.moduleSizes}
-                  loading={this.state.modulesLoading}
-                  sizesError={this.state.sizesError}
-                />
-              </Box>
-              <Box>
-                <BoxHeader>Assets</BoxHeader>
-                <Assets
-                  assets={this.state.assets}
-                  assetSizes={this.state.assetSizes}
-                  loading={this.state.assetsLoading}
-                  sizesError={this.state.sizesError}
-                />
-              </Box>
-              <Box>
-                <BoxHeader>Problems</BoxHeader>
-                <Problems
-                  problems={this.state.problems}
-                  problemsError={this.state.problemsError}
-                  loading={this.state.problemsLoading}
-                />
-              </Box>
-            </Row>
-            <BoxHeader
-              style={{ margin: '20px auto 0px', animation: 'none', opacity: 1 }}
-            >
-              Artisanally hand-crafted at{' '}
-              <a
-                style={{ color: '#00bdff' }}
-                href="javascript:void(0)"
-                onClick={this.openUrl}
-              >
-                Formidable
-              </a>
-            </BoxHeader>
-            <ReactTooltip place="top" type="error" effect="solid" />
-          </Container>
-        );
-      default:
-        return (
-          <Container
-            style={{ flexDirection: 'row', padding: 10, overflow: 'scroll' }}
-          >
-            <Box
-              style={{
-                display: 'flex',
-                padding: 0,
-                flex: '1 1 100%',
-                height: 350,
-              }}
-            >
+      : <Container size={this.state.breakpoint}>
+          <Row size={this.state.breakpoint}>
+            <DoubleBox size={this.state.breakpoint}>
               <Log log={this.state.log} />
-            </Box>
-            <Box style={{ display: 'flex', flex: '1 1 100%', height: 350 }}>
+            </DoubleBox>
+            <Box style={{ display: 'flex' }} size={this.state.breakpoint}>
               <Operations
                 stats={this.state.stats}
                 status={this.state.status}
@@ -276,7 +135,9 @@ class Body extends React.PureComponent {
                 totalModuleMinSizes={this.state.totalModuleMinSizes}
               />
             </Box>
-            <Box style={{ flex: '1 1 100%', height: 350 }}>
+          </Row>
+          <Row size={this.state.breakpoint}>
+            <Box size={this.state.breakpoint}>
               <BoxHeader>Modules</BoxHeader>
               <Modules
                 modules={this.state.modules}
@@ -285,7 +146,7 @@ class Body extends React.PureComponent {
                 sizesError={this.state.sizesError}
               />
             </Box>
-            <Box style={{ flex: '1 1 100%', height: 350 }}>
+            <Box size={this.state.breakpoint}>
               <BoxHeader>Assets</BoxHeader>
               <Assets
                 assets={this.state.assets}
@@ -294,7 +155,7 @@ class Body extends React.PureComponent {
                 sizesError={this.state.sizesError}
               />
             </Box>
-            <Box style={{ flex: '1 1 100%', height: 350 }}>
+            <Box size={this.state.breakpoint}>
               <BoxHeader>Problems</BoxHeader>
               <Problems
                 problems={this.state.problems}
@@ -302,22 +163,21 @@ class Body extends React.PureComponent {
                 loading={this.state.problemsLoading}
               />
             </Box>
-            <BoxHeader
-              style={{ margin: '20px auto 0px', animation: 'none', opacity: 1 }}
+          </Row>
+          <BoxHeader
+            style={{ margin: '20px auto 0px', animation: 'none', opacity: 1 }}
+          >
+            Artisanally hand-crafted at{' '}
+            <a
+              style={{ color: '#00bdff' }}
+              href="javascript:void(0)"
+              onClick={this.openUrl}
             >
-              Artisanally hand-crafted at{' '}
-              <a
-                style={{ color: '#00bdff' }}
-                href="javascript:void(0)"
-                onClick={this.openUrl}
-              >
-                Formidable
-              </a>
-            </BoxHeader>
-            <ReactTooltip place="top" type="error" effect="solid" />
-          </Container>
-        );
-    }
+              Formidable
+            </a>
+          </BoxHeader>
+          <ReactTooltip place="top" type="error" effect="solid" />
+        </Container>;
   }
 }
 export default Body;
