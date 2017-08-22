@@ -2,7 +2,7 @@
   "name": "webpack-dashboard-app",
   "productName": "WebpackDashboard",
   "appId": "org.formidable.WebpackDashboard",
-  "version": "0.1.0-beta.3",
+  "version": "0.1.0-beta.4",
   "description": "Webpack Dashboard app interface",
   "main": "main.js",
   "author": "Ken Wheeler <thekenwheeler@gmail.com>",
