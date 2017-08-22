@@ -1,10 +1,6 @@
 import * as d3 from 'd3';
 import { getColor } from './colors';
-import {
-  markDuplicates,
-  getAncestors,
-  getAllChildren,
-} from './partitionedDataUtils';
+import { markDuplicates, getAllChildren } from './partitionedDataUtils';
 import formatSize from './formatSize';
 
 export function drawSunburst(data) {
@@ -85,7 +81,6 @@ export function drawSunburst(data) {
 
   function mouseover(object) {
     const childrenArray = getAllChildren(object);
-    const ancestorArray = getAncestors(object);
     svg
       .selectAll('path')
       .style('opacity', FADE_OPACITY)
@@ -99,7 +94,7 @@ export function drawSunburst(data) {
 
     const percentage = (100 *
       object.value /
-      paths.node().__data__.value).toFixed(1);
+      paths.node().__data__.value).toFixed(1); // eslint-disable-line no-underscore-dangle
     let percentageString = `${percentage}%`;
     if (percentage < 0.1) {
       percentageString = '< 0.1%';

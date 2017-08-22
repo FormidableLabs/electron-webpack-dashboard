@@ -24,8 +24,9 @@ const DEFAULT_PORT = 9838;
 class Body extends React.PureComponent {
   state = {
     assets: null,
+    chartAssets: null,
     chartData: null,
-    problems: [],
+    problems: null,
     problemsError: false,
     progress: 0,
     sizes: null,
@@ -35,6 +36,13 @@ class Body extends React.PureComponent {
     operations: '',
     log: '',
     breakpoint: 'large',
+    modules: null,
+    moduleSizes: null,
+    assetSizes: null,
+    totalAssetSizes: null,
+    totalModuleSizes: null,
+    totalAssetMinSizes: null,
+    totalModuleMinSizes: null,
     modulesLoading: false,
     assetsLoading: false,
     problemsLoading: false,
@@ -43,14 +51,16 @@ class Body extends React.PureComponent {
     try {
       this.server = new SocketIO(DEFAULT_PORT);
     } catch (e) {
-      alert(e);
+      alert(e); // eslint-disable-line no-alert
     }
-    this.server &&
+    if (this.server) {
       this.server.on('connection', socket => {
         socket.on('message', message => {
-          this.setState(handleSocketData(message));
+          this.setState(state => handleSocketData(state, message));
+          ReactTooltip.rebuild();
         });
       });
+    }
   }
   componentDidMount() {
     window.addEventListener('resize', this.checkLayout);
@@ -58,7 +68,9 @@ class Body extends React.PureComponent {
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.checkLayout);
-    this.server && this.server.disconnect();
+    if (this.server) {
+      this.server.disconnect();
+    }
   }
   checkLayout = () => {
     let breakpoint;
@@ -81,13 +93,14 @@ class Body extends React.PureComponent {
   };
   render() {
     if (this.props.vizActive) {
+      console.log(this.state);
       return (
         <Container>
           <Row>
             <Box style={{ display: 'flex' }} key="viz">
               <Visualization
                 data={this.state.chartData}
-                assets={this.state.assets}
+                assets={this.state.chartAssets}
                 stats={this.state.stats}
                 loading={this.state.modulesLoading}
               />
@@ -123,7 +136,10 @@ class Body extends React.PureComponent {
                   status={this.state.status}
                   progress={this.state.progress}
                   operations={this.state.operations}
-                  sizes={this.state.sizes}
+                  totalAssetSizes={this.state.totalAssetSizes}
+                  totalModuleSizes={this.state.totalModuleSizes}
+                  totalAssetMinSizes={this.state.totalAssetMinSizes}
+                  totalModuleMinSizes={this.state.totalModuleMinSizes}
                 />
               </Box>
             </Row>
@@ -131,8 +147,8 @@ class Body extends React.PureComponent {
               <Box>
                 <BoxHeader>Modules</BoxHeader>
                 <Modules
-                  stats={this.state.stats.data}
-                  sizes={this.state.sizes}
+                  modules={this.state.modules}
+                  moduleSizes={this.state.moduleSizes}
                   loading={this.state.modulesLoading}
                   sizesError={this.state.sizesError}
                 />
@@ -140,8 +156,8 @@ class Body extends React.PureComponent {
               <Box>
                 <BoxHeader>Assets</BoxHeader>
                 <Assets
-                  stats={this.state.stats.data}
-                  sizes={this.state.sizes}
+                  assets={this.state.assets}
+                  assetSizes={this.state.assetSizes}
                   loading={this.state.assetsLoading}
                   sizesError={this.state.sizesError}
                 />
@@ -183,7 +199,10 @@ class Body extends React.PureComponent {
                   status={this.state.status}
                   progress={this.state.progress}
                   operations={this.state.operations}
-                  sizes={this.state.sizes}
+                  totalAssetSizes={this.state.totalAssetSizes}
+                  totalModuleSizes={this.state.totalModuleSizes}
+                  totalAssetMinSizes={this.state.totalAssetMinSizes}
+                  totalModuleMinSizes={this.state.totalModuleMinSizes}
                 />
               </Box>
             </Row>
@@ -191,8 +210,8 @@ class Body extends React.PureComponent {
               <Box>
                 <BoxHeader>Modules</BoxHeader>
                 <Modules
-                  stats={this.state.stats.data}
-                  sizes={this.state.sizes}
+                  modules={this.state.modules}
+                  moduleSizes={this.state.moduleSizes}
                   loading={this.state.modulesLoading}
                   sizesError={this.state.sizesError}
                 />
@@ -200,8 +219,8 @@ class Body extends React.PureComponent {
               <Box>
                 <BoxHeader>Assets</BoxHeader>
                 <Assets
-                  stats={this.state.stats.data}
-                  sizes={this.state.sizes}
+                  assets={this.state.assets}
+                  assetSizes={this.state.assetSizes}
                   loading={this.state.assetsLoading}
                   sizesError={this.state.sizesError}
                 />
@@ -251,14 +270,17 @@ class Body extends React.PureComponent {
                 status={this.state.status}
                 progress={this.state.progress}
                 operations={this.state.operations}
-                sizes={this.state.sizes}
+                totalAssetSizes={this.state.totalAssetSizes}
+                totalModuleSizes={this.state.totalModuleSizes}
+                totalAssetMinSizes={this.state.totalAssetMinSizes}
+                totalModuleMinSizes={this.state.totalModuleMinSizes}
               />
             </Box>
             <Box style={{ flex: '1 1 100%', height: 350 }}>
               <BoxHeader>Modules</BoxHeader>
               <Modules
-                stats={this.state.stats.data}
-                sizes={this.state.sizes}
+                modules={this.state.modules}
+                moduleSizes={this.state.moduleSizes}
                 loading={this.state.modulesLoading}
                 sizesError={this.state.sizesError}
               />
@@ -266,8 +288,8 @@ class Body extends React.PureComponent {
             <Box style={{ flex: '1 1 100%', height: 350 }}>
               <BoxHeader>Assets</BoxHeader>
               <Assets
-                stats={this.state.stats.data}
-                sizes={this.state.sizes}
+                assets={this.state.assets}
+                assetSizes={this.state.assetSizes}
                 loading={this.state.assetsLoading}
                 sizesError={this.state.sizesError}
               />

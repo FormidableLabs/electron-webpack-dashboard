@@ -1,6 +1,17 @@
 import ansiHTML from 'ansi-html';
 import { getAssetsData } from './stat-utils';
 import buildHierarchy from './buildHierarchy';
+import { formatModules, getTotalModuleSize } from '../util/format-modules';
+import {
+  formatMinModules,
+  getTotalMinModuleSize,
+} from '../util/format-min-modules';
+import {
+  formatAssets,
+  getTotalAssetSize,
+  getAssetsFormat,
+} from '../util/format-assets';
+import { formatBundleProblems } from '../util/format-problems';
 
 ansiHTML.setColors({
   reset: ['fff', '1d212d'],
@@ -15,8 +26,8 @@ ansiHTML.setColors({
   darkgrey: '777',
 });
 
-export default function handleSocketData(data, effects) {
-  let state = {};
+export default function handleSocketData(prevState, data) {
+  let state = prevState;
   data.forEach(d => {
     if (d.type === 'log') {
       state = {
@@ -26,43 +37,62 @@ export default function handleSocketData(data, effects) {
     }
 
     if (d.type === 'sizes') {
-      state = d.error
-        ? {
-            ...state,
-            assetsLoading: false,
-            sizesError: d.value,
-          }
-        : {
-            ...state,
-            sizes: d.value,
-            assetsLoading: false,
-            sizesError: false,
-          };
+      if (d.error) {
+        state = {
+          ...state,
+          assetsLoading: false,
+          modulesLoading: false,
+          sizesError: d.value,
+        };
+      } else {
+        state = {
+          ...state,
+          assetSizes: formatAssets(state.stats.data, d.value),
+          moduleSizes: formatMinModules(d.value),
+          assetsLoading: false,
+          modulesLoading: false,
+          totalAssetMinSizes: getTotalAssetSize(
+            getAssetsFormat(state.stats, d.value)
+          ),
+          totalModuleMinSizes: getTotalMinModuleSize(d.value),
+          sizes: d.value,
+          sizesError: false,
+        };
+      }
     }
 
     if (d.type === 'problems') {
-      state = d.error
-        ? {
-            ...state,
-            problems: d.value,
-            problemsLoading: false,
-            problemsError: true,
-          }
-        : {
-            ...state,
-            problems: d.value,
-            problemsLoading: false,
-            problemsError: false,
-          };
+      if (d.error) {
+        state = {
+          ...state,
+          problems: null,
+          problemsLoading: false,
+          problemsError: d.value,
+        };
+      } else {
+        state = {
+          ...state,
+          problems: formatBundleProblems(d.value),
+          problemsLoading: false,
+          problemsError: false,
+        };
+      }
     }
 
     if (d.type === 'status') {
       if (d.value === 'Compiling') {
         state = {
           ...state,
+          assets: null,
+          modules: null,
+          problems: null,
           modulesLoading: true,
           assetsLoading: true,
           problemsLoading: true,
+          totalAssetSizes: null,
+          totalModuleSizes: null,
+          totalAssetMinSizes: null,
+          totalModuleMinSizes: null,
         };
       }
       state = {
@@ -88,11 +118,14 @@ export default function handleSocketData(data, effects) {
     if (d.type === 'stats') {
       state = {
         ...state,
-        assets: getAssetsData(d.value.data.assets, d.value.data.chunks),
+        assets: formatAssets(d.value.data),
+        chartAssets: getAssetsData(d.value.data.assets, d.value.data.chunks),
         chartData: buildHierarchy(d.value.data.modules),
         stats: d.value,
+        modules: formatModules(d.value.data),
         status: 'idle',
-        modulesLoading: false,
+        totalAssetSizes: getTotalAssetSize(d.value.data.assets),
+        totalModuleSizes: getTotalModuleSize(d.value.data.modules),
       };
     }
   });

@@ -1,29 +1,13 @@
 // @flow
 import React from 'react';
-import ansiHTML from 'ansi-html';
 import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
-import _ from 'lodash/fp';
 
-import { formatProblems } from '../util/format-problems';
 import Text from '../components/Text';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
 
 const fadeInAnimation = keyframes`${fadeIn}`;
-
-ansiHTML.setColors({
-  reset: ['fff', '1d212d'],
-  black: 'fff',
-  red: 'f36666',
-  green: '00f2ff',
-  yellow: '00f2ff',
-  blue: '00d0ff',
-  magenta: 'f47eff',
-  cyan: '00f2ff',
-  lightgrey: '888',
-  darkgrey: '777',
-});
 
 const ProblemContainer = styled.div`
   flex: 0;
@@ -34,6 +18,8 @@ const ProblemContainer = styled.div`
   opacity: 0;
   animation: 500ms ${fadeInAnimation} 500ms;
   animation-fill-mode: forwards;
+  overflow: 'scroll';
+  height: calc(100% - 27px);
 `;
 
 const createMarkup = problems => ({
@@ -53,44 +39,15 @@ class Problems extends React.PureComponent {
     if (problemsError) {
       return (
         <ProblemContainer>
-          <Error data-tip={problems.message} data-effect="float">
+          <Error data-tip={problemsError} data-effect="float">
             Error analyzing bundle!
           </Error>
         </ProblemContainer>
       );
     }
-    let result;
-    if (problems.length > 0) {
-      let grouped = (result = _.flow(
-        _.groupBy('path'),
-        _.mapValues(
-          _.reduce((acc, bundle) => Object.assign({}, acc, bundle), {})
-        ),
-        _.mapValues(bundle => {
-          return formatProblems(bundle);
-        })
-      )(problems));
 
-      result = Object.keys(grouped)
-        .map(r => {
-          let formatted = ansiHTML(grouped[r]);
-          return `${r}
-
-${formatted}
-
-`;
-        })
-        .join('');
-    }
-    return result
-      ? <div
-          style={{
-            overflow: 'scroll',
-            height: 'calc(100% - 27px)',
-          }}
-        >
-          <ProblemContainer dangerouslySetInnerHTML={createMarkup(result)} />
-        </div>
+    return problems
+      ? <ProblemContainer dangerouslySetInnerHTML={createMarkup(problems)} />
       : <ProblemContainer>
           <Text>NO DATA</Text>
         </ProblemContainer>;

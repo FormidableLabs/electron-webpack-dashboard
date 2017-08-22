@@ -69,7 +69,7 @@ class Visualization extends React.PureComponent {
             >
               <option value={0}>All Chunks</option>
               {this.props.assets.map((asset, i) =>
-                <option key={i} value={i + 1}>
+                <option key={asset.name} value={i + 1}>
                   {asset.name} ({formatSize(asset.size)})
                 </option>
               )}
