@@ -65,7 +65,7 @@ class Assets extends React.PureComponent {
                           style={{ verticalAlign: 'sub', marginLeft: 10 }}
                           data-tip="Exceeds 250kb!"
                         >
-                          <img src={alertIcon} />
+                          <img src={alertIcon} alt="Asset warning" />
                         </a>}
                     </td>
                   </tr>

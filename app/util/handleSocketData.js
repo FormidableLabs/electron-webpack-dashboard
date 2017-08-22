@@ -1,5 +1,4 @@
 import ansiHTML from 'ansi-html';
-import _ from 'lodash/fp';
 import { getAssetsData } from './stat-utils';
 import buildHierarchy from './buildHierarchy';
 import { formatModules, getTotalModuleSize } from '../util/format-modules';
@@ -12,7 +11,7 @@ import {
   getTotalAssetSize,
   getAssetsFormat,
 } from '../util/format-assets';
-import { formatProblems } from '../util/format-problems';
+import { formatBundleProblems } from '../util/format-problems';
 
 ansiHTML.setColors({
   reset: ['fff', '1d212d'],
@@ -38,25 +37,28 @@ export default function handleSocketData(prevState, data) {
     }
 
     if (d.type === 'sizes') {
-      state = d.error
-        ? {
-            ...state,
-            assetsLoading: false,
-            modulesLoading: false,
-            sizesError: d.value,
-          }
-        : {
-            ...state,
-            assetSizes: formatAssets(state.stats.data, d.value),
-            moduleSizes: formatMinModules(d.value),
-            assetsLoading: false,
-            modulesLoading: false,
-            totalAssetMinSizes: getTotalAssetSize(
-              getAssetsFormat(state.stats, d.value)
-            ),
-            totalModuleMinSizes: getTotalMinModuleSize(d.value),
-            sizesError: false,
-          };
+      if (d.error) {
+        state = {
+          ...state,
+          assetsLoading: false,
+          modulesLoading: false,
+          sizesError: d.value,
+        };
+      } else {
+        state = {
+          ...state,
+          assetSizes: formatAssets(state.stats.data, d.value),
+          moduleSizes: formatMinModules(d.value),
+          assetsLoading: false,
+          modulesLoading: false,
+          totalAssetMinSizes: getTotalAssetSize(
+            getAssetsFormat(state.stats, d.value)
+          ),
+          totalModuleMinSizes: getTotalMinModuleSize(d.value),
+          sizes: d.value,
+          sizesError: false,
+        };
+      }
     }
 
     if (d.type === 'problems') {
@@ -68,29 +70,9 @@ export default function handleSocketData(prevState, data) {
           problemsError: d.value,
         };
       } else {
-        let result;
-        const grouped = (result = _.flow(
-          _.groupBy('path'),
-          _.mapValues(
-            _.reduce((acc, bundle) => Object.assign({}, acc, bundle), {})
-          ),
-          _.mapValues(bundle => formatProblems(bundle))
-        )(d.value));
-
-        result = Object.keys(grouped)
-          .map(r => {
-            const formatted = ansiHTML(grouped[r]);
-            return `${r}
-
-  ${formatted}
-
-  `;
-          })
-          .join('');
-
         state = {
           ...state,
-          problems: result,
+          problems: formatBundleProblems(d.value),
           problemsLoading: false,
           problemsError: false,
         };

@@ -14,18 +14,9 @@ function getModulePath(identifier) {
   return identifier.replace(loaderRegex, '');
 }
 
-function getModuleDirPath(modulePath) {
-  const moduleDirRegex = new RegExp(
-    `(.*?node_modules\\${path.sep}.*?)\\${path.sep}`
-  );
-  return modulePath.match(moduleDirRegex)[1];
-}
-
 // eslint-disable-next-line max-statements
 function printDependencySizeTree(node, depth, outputFn) {
-  const childrenBySize = node.children.sort((a, b) => {
-    return b.size - a.size;
-  });
+  const childrenBySize = node.children.sort((a, b) => b.size - a.size);
 
   const totalSize = node.size;
   let remainder = totalSize;
@@ -82,19 +73,16 @@ function bundleSizeTree(stats) {
     statsTree.bundleName = stats.name;
   }
 
-  const modules = stats.modules.map(mod => {
-    return {
-      path: getModulePath(mod.identifier),
-      size: mod.size,
-    };
-  });
+  const modules = stats.modules.map(mod => ({
+    path: getModulePath(mod.identifier),
+    size: mod.size,
+  }));
 
   modules.sort((a, b) => {
     if (a === b) {
       return 0;
-    } else {
-      return a < b ? -1 : 1;
     }
+    return a < b ? -1 : 1;
   });
 
   modules.forEach(mod => {
@@ -124,9 +112,9 @@ function bundleSizeTree(stats) {
     let parent = statsTree;
     parent.size += mod.size;
     packages.forEach(pkg => {
-      const existing = parent.children.filter(child => {
-        return child.packageName === pkg;
-      });
+      const existing = parent.children.filter(
+        child => child.packageName === pkg
+      );
       let packageVersion = '';
       if (existing.length > 0) {
         existing[0].size += mod.size;

@@ -1,13 +1,9 @@
-'use strict';
 const _ = require('lodash/fp');
 const chalk = require('chalk');
 const filesize = require('filesize');
 const Handlebars = require('handlebars');
 
-Handlebars.registerHelper('filesize', function(options) {
-  // eslint-disable-next-line no-invalid-this
-  return filesize(options.fn(this));
-});
+Handlebars.registerHelper('filesize', options => filesize(options.fn(this)));
 
 const template = Handlebars.compile(
   `${chalk.yellow(chalk.underline('Duplicate files'))}

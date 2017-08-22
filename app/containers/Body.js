@@ -51,15 +51,16 @@ class Body extends React.PureComponent {
     try {
       this.server = new SocketIO(DEFAULT_PORT);
     } catch (e) {
-      alert(e);
+      alert(e); // eslint-disable-line no-alert
     }
-    this.server &&
+    if (this.server) {
       this.server.on('connection', socket => {
         socket.on('message', message => {
           this.setState(state => handleSocketData(state, message));
           ReactTooltip.rebuild();
         });
       });
+    }
   }
   componentDidMount() {
     window.addEventListener('resize', this.checkLayout);
@@ -67,7 +68,9 @@ class Body extends React.PureComponent {
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.checkLayout);
-    this.server && this.server.disconnect();
+    if (this.server) {
+      this.server.disconnect();
+    }
   }
   checkLayout = () => {
     let breakpoint;
@@ -90,6 +93,7 @@ class Body extends React.PureComponent {
   };
   render() {
     if (this.props.vizActive) {
+      console.log(this.state);
       return (
         <Container>
           <Row>

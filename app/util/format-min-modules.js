@@ -1,12 +1,8 @@
-'use strict';
-
-const path = require('path');
 const _ = require('lodash/fp');
 const filesize = require('filesize');
 
 const PERCENT_MULTIPLIER = 100;
 const PERCENT_PRECISION = 3;
-const SCOPED_PACKAGE_INDEX = 2;
 
 function formatModulePercentage(module, pseudoBundleSize) {
   const moduleSize = _.get('size.minGz')(module);
@@ -20,7 +16,7 @@ function formatModulePercentage(module, pseudoBundleSize) {
 }
 
 function getModuleName(module) {
-  const nameReg = /node_modules\/(@.\w*\/{1}.\w*|\w*).*$/;
+  const nameReg = /node_modules\/(@.\w*\/{1}.[a-z-]*|[a-z-]*)\/.*$/;
   const matches = nameReg.exec(module.baseName);
   if (matches) {
     return matches[1];

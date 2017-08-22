@@ -1,9 +1,9 @@
 export default function formatSize(size, precision = 1) {
-  let kb = {
+  const kb = {
     label: 'k',
     value: 1024,
   };
-  let mb = {
+  const mb = {
     label: 'M',
     value: 1024 * 1024,
   };

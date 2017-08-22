@@ -27,19 +27,18 @@ const HeaderActionWrapper = styled.div`
   transform: translateY(-50%);
 `;
 
-const HeaderActions = ({ vizActive, onVizToggle }) => (
+const HeaderActions = ({ vizActive, onVizToggle }) =>
   <HeaderActionWrapper>
     <HeaderAction onClick={onVizToggle} vizActive={vizActive}>
       <FaEye width="24px" height="24px" />
     </HeaderAction>
     <HeaderAction
       onClick={() => {
-        alert("Port configuration didn't make it to this beta. Sorry!");
+        alert("Port configuration didn't make it to this beta. Sorry!"); // eslint-disable-line no-alert
       }}
     >
       <FaCog width="24px" height="24px" />
     </HeaderAction>
-  </HeaderActionWrapper>
-);
+  </HeaderActionWrapper>;
 
 export default HeaderActions;

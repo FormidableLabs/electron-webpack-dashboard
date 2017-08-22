@@ -27,11 +27,6 @@ const createMarkup = log => ({
 });
 
 class Log extends React.PureComponent {
-  componentDidUpdate() {
-    setTimeout(() => {
-      this.scroller.scrollTop = 1000000;
-    }, 200);
-  }
   componentDidMount() {
     if (this.scroller) {
       setTimeout(() => {
@@ -40,6 +35,11 @@ class Log extends React.PureComponent {
         }
       }, 500);
     }
+  }
+  componentDidUpdate() {
+    setTimeout(() => {
+      this.scroller.scrollTop = 1000000;
+    }, 200);
   }
   render() {
     return (

@@ -1,7 +1,8 @@
-export const ERROR_CHUNK_MODULES = `Unfortunately, it looks like your stats don't include chunk-specific module data. See below for details.`;
+export const ERROR_CHUNK_MODULES =
+  "Unfortunately, it looks like your stats don't include chunk-specific module data. See below for details.";
 
 export function getAssetsData(assets, chunks) {
-  let chunksMap = {};
+  const chunksMap = {};
   chunks.forEach(chunk => {
     chunksMap[chunk.id] = chunk;
   });
@@ -9,7 +10,7 @@ export function getAssetsData(assets, chunks) {
   return assets
     .filter(asset => asset.name.indexOf('.js') === asset.name.length - 3)
     .map(asset => {
-      let chunkIndex = asset.chunks[0];
+      const chunkIndex = asset.chunks[0];
 
       return {
         ...asset,
@@ -18,7 +19,7 @@ export function getAssetsData(assets, chunks) {
     });
 }
 
-export function getBundleDetails({ assets, chunks, selectedAssetIndex }) {
+export function getBundleDetails({ assets, selectedAssetIndex }) {
   if (selectedAssetIndex === 0) {
     if (assets.length === 1) {
       return {
@@ -30,22 +31,20 @@ export function getBundleDetails({ assets, chunks, selectedAssetIndex }) {
           0
         ),
       };
-    } else {
-      return {
-        type: 'collection',
-        assetName: 'All Modules',
-        actual: '',
-        raw: '',
-      };
     }
-  } else {
-    let asset = assets[selectedAssetIndex - 1];
-
     return {
-      type: 'normal',
-      assetName: asset.name,
-      actual: asset.size,
-      raw: asset.chunk.size,
+      type: 'collection',
+      assetName: 'All Modules',
+      actual: '',
+      raw: '',
     };
   }
+  const asset = assets[selectedAssetIndex - 1];
+
+  return {
+    type: 'normal',
+    assetName: asset.name,
+    actual: asset.size,
+    raw: asset.chunk.size,
+  };
 }
