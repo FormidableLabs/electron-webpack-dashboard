@@ -49,8 +49,6 @@ export default function handleSocketData(prevState, data) {
           ...state,
           assetSizes: formatAssets(state.stats.data, d.value),
           moduleSizes: formatMinModules(d.value),
-          assetsLoading: false,
-          modulesLoading: false,
           totalAssetMinSizes: getTotalAssetSize(
             getAssetsFormat(state.stats, d.value)
           ),
@@ -119,6 +117,8 @@ export default function handleSocketData(prevState, data) {
       state = {
         ...state,
         assets: formatAssets(d.value.data),
+        assetsLoading: false,
+        modulesLoading: false,
         chartAssets: getAssetsData(d.value.data.assets, d.value.data.chunks),
         chartData: buildHierarchy(d.value.data.modules),
         stats: d.value,
