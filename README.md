@@ -31,6 +31,7 @@ Download the version for your OS here:
 If you are on OSX you also install the App via [Homebrew Cask](https://caskroom.github.io/):
 
 ```bash
+$ brew update
 $ brew cask install webpack-dashboard
 ```
 
