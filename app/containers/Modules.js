@@ -7,10 +7,12 @@ import { Line } from 'rc-progress';
 import Text from '../components/Text';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
+import withSettings from './withSettings';
+import getFontSize from '../util/get-font-size';
 
 const fadeInAnimation = keyframes`${fadeIn}`;
 
-const ColorText = styled(Text)`
+const ColorText = styled(Text) `
   color: #00d0ff;
 `;
 
@@ -22,16 +24,16 @@ const Container = styled.div`
   height: calc(100% - 27px);
 `;
 
-const BundleName = styled.p`
+const BundleName = withSettings(styled.p`
   font-family: 'montserratlight';
-  font-size: 10px;
+  font-size: ${({ fontSizeModifier }) => getFontSize(10, fontSizeModifier)}px;
   letter-spacing: 2px;
   color: #6c7082;
   margin-bottom: 10px;
   margin-top: 20px;
   height: auto;
   text-transform: uppercase;
-`;
+`);
 
 class Modules extends React.PureComponent {
   render() {
@@ -97,7 +99,10 @@ class Modules extends React.PureComponent {
       return (
         <Container>
           {sizesError &&
-            <Error data-tip={sizesError.message} data-effect="float">
+            <Error
+              data-tip={sizesError.message}
+              data-effect="float"
+            >
               Error calculating minified sizes!
             </Error>}
           <table>

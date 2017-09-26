@@ -10,7 +10,7 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, globalShortcut } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import notifier from 'node-notifier';
 import isDev from 'electron-is-dev';
@@ -90,6 +90,10 @@ app.on('window-all-closed', () => {
   app.quit();
 });
 
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll();
+});
+
 app.on('ready', async () => {
   if (
     process.env.NODE_ENV === 'development' ||
@@ -123,4 +127,8 @@ app.on('ready', async () => {
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
+
+  const settings = require('./settings');
+  settings.setDefaultSettings();
+  settings.setupShortcuts();
 });
