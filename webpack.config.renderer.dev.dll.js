@@ -116,7 +116,7 @@ export default merge.smart(baseConfig, {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            mimetype: 'application/font-woff',
+            mimetype: 'application/font-woff2',
           },
         },
       },
@@ -161,7 +161,7 @@ export default merge.smart(baseConfig, {
 
   entry: {
     renderer: Object.keys(dependencies || {}).filter(
-      dependency => dependency !== 'font-awesome'
+      dependency => !['font-awesome', 'react-icons'].includes(dependency)
     ),
   },
 
