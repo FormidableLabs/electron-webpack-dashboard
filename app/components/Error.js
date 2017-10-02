@@ -1,8 +1,10 @@
 import styled from 'styled-components';
+import withSettings from '../containers/withSettings';
+import getFontSize from '../util/get-font-size';
 
-export default styled.p`
+export default withSettings(styled.p`
   font-family: 'menloregular';
-  font-size: 10px;
+  font-size: ${({ fontSizeModifier }) => getFontSize(10, fontSizeModifier)}px;
   color: #f36666;
   display: inline-block;
-`;
+`);

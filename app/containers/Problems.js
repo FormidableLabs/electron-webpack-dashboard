@@ -6,21 +6,23 @@ import { fadeIn } from 'react-animations';
 import Text from '../components/Text';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
+import withSettings from './withSettings';
+import getFontSize from '../util/get-font-size';
 
 const fadeInAnimation = keyframes`${fadeIn}`;
 
-const ProblemContainer = styled.div`
+const ProblemContainer = withSettings(styled.div`
   flex: 0;
   white-space: pre-wrap;
   font-family: 'menloregular';
-  font-size: 11px;
+  font-size: ${({ fontSizeModifier }) => getFontSize(11, fontSizeModifier)}px;
   color: #fff;
   opacity: 0;
   animation: 500ms ${fadeInAnimation} 500ms;
   animation-fill-mode: forwards;
   overflow: 'scroll';
   height: calc(100% - 27px);
-`;
+`);
 
 const createMarkup = problems => ({
   __html: `${problems}`,
@@ -49,8 +51,8 @@ class Problems extends React.PureComponent {
     return problems
       ? <ProblemContainer dangerouslySetInnerHTML={createMarkup(problems)} />
       : <ProblemContainer>
-          <Text>NO DATA</Text>
-        </ProblemContainer>;
+        <Text>NO DATA</Text>
+      </ProblemContainer>;
   }
 }
 

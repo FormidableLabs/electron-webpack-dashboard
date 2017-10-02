@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import withSettings from '../containers/withSettings';
+import getFontSize from '../util/get-font-size';
 
-export default styled.p`
-  font-family: 'menloregular';
-  font-size: 11px;
-  color: #fff;
-`;
+export default withSettings(styled.p`
+font-family: 'menloregular';
+font-size: ${({ fontSizeModifier }) => getFontSize(11, fontSizeModifier)}px;
+color: #fff;
+`);
