@@ -8,4 +8,8 @@ export default styled.div`
   padding: 40px;
   flex-wrap: wrap;
   overflow: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
