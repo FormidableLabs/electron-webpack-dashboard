@@ -4,12 +4,12 @@ import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
 import withSettings from './withSettings';
 import getFontSize from '../util/get-font-size';
+import { ScrollerBase } from '../components/ScrollerBase';
 
 const fadeInAnimation = keyframes`${fadeIn}`;
 
-const LogScroller = styled.div`
+const LogScroller = styled(ScrollerBase)`
   flex: 1;
-  overflow: scroll;
   padding: 30px;
   opacity: 0;
   animation: 500ms ${fadeInAnimation} 500ms;

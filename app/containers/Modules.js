@@ -9,6 +9,7 @@ import Error from '../components/Error';
 import Loading from '../components/Loading';
 import withSettings from './withSettings';
 import getFontSize from '../util/get-font-size';
+import { ScrollerBase } from '../components/ScrollerBase';
 
 const fadeInAnimation = keyframes`${fadeIn}`;
 
@@ -16,11 +17,10 @@ const ColorText = styled(Text) `
   color: #00d0ff;
 `;
 
-const Container = styled.div`
+const Container = styled(ScrollerBase)`
   opacity: 0;
   animation: 500ms ${fadeInAnimation} 500ms;
   animation-fill-mode: forwards;
-  overflow: scroll;
   height: calc(100% - 27px);
 `;
 

@@ -6,15 +6,15 @@ import { fadeIn } from 'react-animations';
 import Text from '../components/Text';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
+import { ScrollerBase } from '../components/ScrollerBase';
 
 const fadeInAnimation = keyframes`${fadeIn}`;
 const alertIcon = require('../assets/alert-icon.svg');
 
-const Container = styled.div`
+const Container = styled(ScrollerBase)`
   opacity: 0;
   animation: 500ms ${fadeInAnimation} 500ms;
   animation-fill-mode: forwards;
-  overflow: scroll;
   height: calc(100% - 27px);
 `;
 
