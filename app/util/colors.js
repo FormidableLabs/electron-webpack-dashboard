@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-export function getColor(obj, showRoot) {
+export const getColor = function (obj, showRoot) {
   let colors;
   const d = obj;
 

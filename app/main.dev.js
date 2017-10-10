@@ -41,23 +41,10 @@ const installExtensions = async () => {
 
   return Promise.all(
     extensions.map(name => installer.default(installer[name], forceDownload))
-  ).catch(console.log);
+  ).catch(console.log); // eslint-disable-line no-console
 };
 
-function initAutoUpdate() {
-  if (isDev) {
-    return;
-  }
-
-  if (process.platform === 'linux') {
-    return;
-  }
-
-  autoUpdater.on('update-downloaded', showUpdateNotification);
-  autoUpdater.checkForUpdates();
-}
-
-function showUpdateNotification(it) {
+const showUpdateNotification = function (it) {
   it = it || {};
   const restartNowAction = 'Restart now';
 
@@ -80,6 +67,19 @@ function showUpdateNotification(it) {
       autoUpdater.quitAndInstall();
     }
   );
+}
+
+const initAutoUpdate = function () {
+  if (isDev) {
+    return;
+  }
+
+  if (process.platform === 'linux') {
+    return;
+  }
+
+  autoUpdater.on('update-downloaded', showUpdateNotification);
+  autoUpdater.checkForUpdates();
 }
 
 /**

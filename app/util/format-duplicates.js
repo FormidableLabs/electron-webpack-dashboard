@@ -23,7 +23,7 @@ Total wasted bytes (min+gz): {{#filesize}}{{total.size.minGzExtra}}{{/filesize}}
 `
 );
 
-function formatDuplicates(duplicates) {
+const formatDuplicates = function (duplicates) {
   return (
     (_.get('meta.numFilesExtra')(duplicates) &&
       template({

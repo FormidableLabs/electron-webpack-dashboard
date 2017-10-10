@@ -92,7 +92,16 @@ const BigProgressText = styled.h1`
   white-space: nowrap;
 `;
 
-class Operations extends React.PureComponent {
+type Props = {
+  totalAssetSizes?: string,
+  totalModuleSizes?: string,
+  totalAssetMinSizes?: string,
+  totalModuleMinSizes?: string,
+  progress: number,
+  status: string,
+  stats?: Object,
+}
+class Operations extends React.PureComponent<Props> {
   render() {
     const {
       totalAssetSizes,

@@ -26,7 +26,13 @@ const ErrorText = styled(Text)`
   color: #f36666;
 `;
 
-class Assets extends React.PureComponent {
+type Props = {
+  assets?: Array,
+  assetSizes?: Array,
+  loading: bool,
+  sizesError: Object
+}
+class Assets extends React.PureComponent<Props> {
   render() {
     const { assets, assetSizes, loading, sizesError } = this.props;
     if (loading) {

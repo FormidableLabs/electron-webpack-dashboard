@@ -4,7 +4,7 @@ const filesize = require('filesize');
 const PERCENT_MULTIPLIER = 100;
 const PERCENT_PRECISION = 3;
 
-function formatModulePercentage(module, pseudoBundleSize) {
+const formatModulePercentage = function (module, pseudoBundleSize) {
   const moduleSize = _.get('size.minGz')(module);
 
   if (!moduleSize || !pseudoBundleSize) {
@@ -15,7 +15,7 @@ function formatModulePercentage(module, pseudoBundleSize) {
   );
 }
 
-function getModuleName(module) {
+const getModuleName = function (module) {
   const nameReg = /node_modules\/(@.\w*\/{1}.[a-z-]*|[a-z-]*)\/.*$/;
   const matches = nameReg.exec(module.baseName);
   if (matches) {
@@ -24,7 +24,7 @@ function getModuleName(module) {
   return '<self>';
 }
 
-function groupModules(bundle) {
+const groupModules = function (bundle) {
   return _.flow(
     _.filter(module => module.type === 'code'),
     _.filter(module => module.baseName.indexOf('external "') === -1),
@@ -58,7 +58,7 @@ const getPseudoBundleSize = _.flow(
   _.reduce((total, groupSize) => total + groupSize, 0)
 );
 
-export function getTotalMinModuleSize(sizes) {
+export const getTotalMinModuleSize = function (sizes) {
   let size = 0;
 
   const bundles = _.flow(
@@ -75,7 +75,7 @@ export function getTotalMinModuleSize(sizes) {
   return filesize(size);
 }
 
-export function formatMinModules(sizes) {
+export const formatMinModules = function (sizes) {
   const bundles = _.flow(
     _.groupBy('path'),
     _.mapValues(_.reduce((acc, bundle) => Object.assign({}, acc, bundle), {}))
