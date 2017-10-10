@@ -12,9 +12,11 @@ import Assets from './Assets';
 import Modules from './Modules';
 import Problems from './Problems';
 import Visualization from './Visualization';
+import NodeEnvironment from './NodeEnvironment';
 
 import Row from '../components/Row';
-import Box from '../components/Box';
+import Column from '../components/Column';
+import { Box, StatusBox } from '../components/Box';
 import DoubleBox from '../components/DoubleBox';
 import Container from '../components/Container';
 import BoxHeader from '../components/BoxHeader';
@@ -38,6 +40,7 @@ class Body extends React.PureComponent {
     breakpoint: 'large',
     modules: null,
     moduleSizes: null,
+    nodeEnv: null,
     assetSizes: null,
     totalAssetSizes: null,
     totalModuleSizes: null,
@@ -92,6 +95,7 @@ class Body extends React.PureComponent {
     shell.openExternal('http://www.formidable.com');
   };
   render() {
+    console.log(this.state.nodeEnv);
     return this.props.vizActive
       ? <Container>
           <Row>
@@ -123,18 +127,25 @@ class Body extends React.PureComponent {
             <DoubleBox size={this.state.breakpoint}>
               <Log log={this.state.log} />
             </DoubleBox>
-            <Box style={{ display: 'flex' }} size={this.state.breakpoint}>
-              <Operations
-                stats={this.state.stats}
-                status={this.state.status}
-                progress={this.state.progress}
-                operations={this.state.operations}
-                totalAssetSizes={this.state.totalAssetSizes}
-                totalModuleSizes={this.state.totalModuleSizes}
-                totalAssetMinSizes={this.state.totalAssetMinSizes}
-                totalModuleMinSizes={this.state.totalModuleMinSizes}
-              />
-            </Box>
+            <Column size={this.state.breakpoint}>
+              <Box style={{ display: 'flex' }} size={this.state.breakpoint}>
+                <Operations
+                  stats={this.state.stats}
+                  status={this.state.status}
+                  progress={this.state.progress}
+                  operations={this.state.operations}
+                  totalAssetSizes={this.state.totalAssetSizes}
+                  totalModuleSizes={this.state.totalModuleSizes}
+                  totalAssetMinSizes={this.state.totalAssetMinSizes}
+                  totalModuleMinSizes={this.state.totalModuleMinSizes}
+                />
+              </Box>
+              {this.state.nodeEnv && (
+                <StatusBox>
+                  <NodeEnvironment environment={this.state.nodeEnv} />
+                </StatusBox>
+              )}
+            </Column>
           </Row>
           <Row size={this.state.breakpoint}>
             <Box size={this.state.breakpoint}>
