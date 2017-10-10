@@ -106,6 +106,13 @@ export default function handleSocketData(prevState, data) {
       };
     }
 
+    if (d.type === 'nodeEnv') {
+      state = {
+        ...state,
+        nodeEnv: d.value
+      };
+    }
+
     if (d.type === 'progress') {
       state = {
         ...state,
