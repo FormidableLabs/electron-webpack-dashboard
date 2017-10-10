@@ -24,7 +24,9 @@ export function getColor(obj, showRoot) {
     d.children
       .map((child, i) => ({ value: child.value, idx: i }))
       .sort((a, b) => b.value - a.value)
-      .forEach((child, i) => (d.children[child.idx].color = colors(i)));
+      .forEach((child, i) => {
+        d.children[child.idx].color = colors(i);
+      });
   }
 
   return d.color;

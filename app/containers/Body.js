@@ -95,7 +95,6 @@ class Body extends React.PureComponent {
     shell.openExternal('http://www.formidable.com');
   };
   render() {
-    console.log(this.state.nodeEnv);
     return this.props.vizActive
       ? <Container>
           <Row>
