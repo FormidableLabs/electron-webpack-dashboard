@@ -25,5 +25,8 @@
     "no-invalid-this": "off",
     "react/jsx-handler-names": "off",
     "react/no-multi-comp": "off"
-  }
+  },
+  "plugins": [
+    "react"
+  ]
 }
