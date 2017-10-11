@@ -28,12 +28,15 @@ Download the version for your OS here:
 
 [https://github.com/FormidableLabs/electron-webpack-dashboard/releases/latest](https://github.com/FormidableLabs/electron-webpack-dashboard/releases/latest)
 
-If you are on OSX you also install the App via [Homebrew Cask](https://caskroom.github.io/):
+If you are on macOS you can also install the app via [Homebrew Cask](https://caskroom.github.io/):
 
 ```bash
 $ brew update
 $ brew cask install webpack-dashboard
 ```
+
+### Webpack 3 compatibility
+To receive a complete analysis of your bundle, including modules, assets, and problems, you will need to make sure your project is using Webpack Dashboard Plugin 1.0 or higher.
 
 ### Configuring Your Project
 
