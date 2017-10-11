@@ -28,7 +28,12 @@ const createMarkup = problems => ({
   __html: `${problems}`,
 });
 
-class Problems extends React.PureComponent {
+type Props = {
+  problems?: string,
+  problemsError?: string,
+  loading: bool
+}
+class Problems extends React.PureComponent<Props> {
   render() {
     const { problems, problemsError, loading } = this.props;
     if (loading) {

@@ -21,7 +21,11 @@ const TooltipText = styled.span`
   font-size: 16px;
 `;
 
-class Visualization extends React.PureComponent {
+type Props = {
+  assets?: Array,
+  loading: bool
+}
+class Visualization extends React.PureComponent<Props> {
   static propTypes = {
     data: PropTypes.object,
   };
@@ -69,9 +73,9 @@ class Visualization extends React.PureComponent {
             >
               <option value={0}>All Chunks</option>
               {this.props.assets.map((asset, i) =>
-                <option key={asset.name} value={i + 1}>
+                (<option key={asset.name} value={i + 1}>
                   {asset.name} ({formatSize(asset.size)})
-                </option>
+                </option>)
               )}
             </select>
           </div>

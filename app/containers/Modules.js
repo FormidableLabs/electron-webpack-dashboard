@@ -35,7 +35,13 @@ const BundleName = withSettings(styled.p`
   text-transform: uppercase;
 `);
 
-class Modules extends React.PureComponent {
+type Props = {
+  modules?: Array,
+  moduleSizes?: Array,
+  loading: bool,
+  sizesError?: Object
+}
+class Modules extends React.PureComponent<Props> {
   render() {
     const { modules, moduleSizes, loading, sizesError } = this.props;
     let target;
@@ -54,7 +60,7 @@ class Modules extends React.PureComponent {
         return (
           <Container>
             {Object.keys(target).map(m =>
-              <div key={m}>
+              (<div key={m}>
                 <BundleName>
                   {m} (estimated min+gz):
                 </BundleName>
@@ -90,7 +96,7 @@ class Modules extends React.PureComponent {
                     })}
                   </tbody>
                 </table>
-              </div>
+              </div>)
             )}
           </Container>
         );

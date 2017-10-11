@@ -3,7 +3,7 @@ import { getColor } from './colors';
 import { markDuplicates, getAllChildren } from './partitionedDataUtils';
 import formatSize from './formatSize';
 
-export function drawSunburst(data) {
+export const drawSunburst = function (data) {
   const width = 1000;
   const height = 1000;
   const radius = Math.min(width, height) / 2;
@@ -53,11 +53,9 @@ export function drawSunburst(data) {
     .style('fill', d => getColor(d))
     .style('stroke-width', '2')
     .style('stroke', 'white')
-    .text(d => d)
-    .on('click', click)
-    .on('mouseover', mouseover);
+    .text(d => d);
 
-  function click(d) {
+  const click = function (d) {
     svg
       .transition()
       .duration(750)
@@ -73,13 +71,9 @@ export function drawSunburst(data) {
       .selectAll('path')
       .attrTween('d', e => () => arc(e));
     d3.select('#d3-tooltip').style('visibility', 'hidden');
-  }
+  };
 
-  d3.select('#group').on('mouseleave', object => {
-    mouseleave(object);
-  });
-
-  function mouseover(object) {
+  const mouseover = function (object) {
     const childrenArray = getAllChildren(object);
     svg
       .selectAll('path')
@@ -106,12 +100,20 @@ export function drawSunburst(data) {
 
     d3.select('#d3-tooltip-text').text(tooltipText);
     d3.select('#d3-tooltip').style('visibility', '');
-  }
+  };
 
-  function mouseleave() {
+  const mouseleave = function () {
     paths.style('opacity', 1).style('stroke-width', 2);
     d3.select('#d3-tooltip').style('visibility', 'hidden');
-  }
+  };
+
+  d3.select('#group').on('mouseleave', object => {
+    mouseleave(object);
+  });
+
+  paths
+    .on('click', click)
+    .on('mouseover', mouseover);
 
   d3.select(self.frameElement).style('height', `${height}px`);
 }

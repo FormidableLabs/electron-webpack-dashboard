@@ -24,6 +24,7 @@
     "package-win": "npm run build && build --win --x64",
     "package-publish": "npm run build && build -mwl --publish=always",
     "postinstall": "concurrently \"npm run flow-typed\" \"npm run build-dll\" \"electron-builder install-app-deps\" \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\"",
+    "precommit": "lint-staged",
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production electron ./app/",
     "start-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./app/main.dev",
@@ -146,16 +147,19 @@
     "enzyme-to-json": "^1.5.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
+    "eslint-config-formidable": "^3.0.0",
+    "eslint-config-prettier": "^2.6.0",
     "eslint-formatter-pretty": "^1.1.0",
     "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-plugin-compat": "^1.0.4",
+    "eslint-plugin-filenames": "^1.2.0",
     "eslint-plugin-flowtype": "^2.33.0",
     "eslint-plugin-flowtype-errors": "^3.3.0",
-    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jest": "^20.0.3",
     "eslint-plugin-jsx-a11y": "5.0.3",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-react": "^7.1.0",
+    "eslint-plugin-react": "7.4.0",
     "express": "^4.15.3",
     "extract-text-webpack-plugin": "latest",
     "fbjs-scripts": "^0.8.0",
@@ -164,9 +168,11 @@
     "flow-runtime": "^0.13.0",
     "flow-typed": "^2.1.2",
     "html-webpack-plugin": "^2.29.0",
+    "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^20.0.4",
     "jsdom": "^11.0.0",
+    "lint-staged": "^4.2.3",
     "minimist": "^1.2.0",
     "node-sass": "^4.5.3",
     "react-addons-test-utils": "^15.6.0",
@@ -217,5 +223,11 @@
     "node": ">=7.x",
     "npm": ">=4.x",
     "yarn": ">=0.21.3"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint",
+      "git add"
+    ]
   }
 }

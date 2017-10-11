@@ -23,7 +23,11 @@ import BoxHeader from '../components/BoxHeader';
 
 const DEFAULT_PORT = 9838;
 
-class Body extends React.PureComponent {
+type Props = {
+  vizActive: bool,
+
+}
+class Body extends React.PureComponent<Props> {
   state = {
     assets: null,
     chartAssets: null,
@@ -91,7 +95,8 @@ class Body extends React.PureComponent {
       this.setState({ breakpoint });
     }
   };
-  openUrl = () => {
+  openUrl = event => {
+    event.preventDefault();
     shell.openExternal('http://www.formidable.com');
   };
   render() {
@@ -113,7 +118,7 @@ class Body extends React.PureComponent {
             Artisanally hand-crafted at{' '}
             <a
               style={{ color: '#00bdff' }}
-              href="javascript:void(0)"
+              href="#"
               onClick={this.openUrl}
             >
               Formidable
@@ -180,7 +185,7 @@ class Body extends React.PureComponent {
             Artisanally hand-crafted at{' '}
             <a
               style={{ color: '#00bdff' }}
-              href="javascript:void(0)"
+              href="#"
               onClick={this.openUrl}
             >
               Formidable

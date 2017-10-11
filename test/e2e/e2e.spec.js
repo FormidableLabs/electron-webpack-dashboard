@@ -36,9 +36,9 @@ describe('main window', function spec() {
     const logs = await client.getRenderProcessLogs();
     // Print renderer process logs
     logs.forEach(log => {
-      console.log(log.message);
-      console.log(log.source);
-      console.log(log.level);
+      console.log(log.message); // eslint-disable-line no-console
+      console.log(log.source); // eslint-disable-line no-console
+      console.log(log.level); // eslint-disable-line no-console
     });
     expect(logs).toHaveLength(0);
   });

@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import styled from 'styled-components';
 import FaCog from 'react-icons/lib/fa/cog';
@@ -27,8 +28,12 @@ const HeaderActionWrapper = styled.div`
   transform: translateY(-50%);
 `;
 
-const HeaderActions = ({ vizActive, onVizToggle }) =>
-  <HeaderActionWrapper>
+type Props = {
+  vizActive: bool,
+  onVizToggle: Function
+}
+const HeaderActions = ({ vizActive, onVizToggle }: Props) =>
+  (<HeaderActionWrapper>
     <HeaderAction onClick={onVizToggle} vizActive={vizActive}>
       <FaEye width="24px" height="24px" />
     </HeaderAction>
@@ -39,6 +44,6 @@ const HeaderActions = ({ vizActive, onVizToggle }) =>
     >
       <FaCog width="24px" height="24px" />
     </HeaderAction>
-  </HeaderActionWrapper>;
+  </HeaderActionWrapper>);
 
 export default HeaderActions;

@@ -28,7 +28,10 @@ const createMarkup = log => ({
   __html: `${log}`,
 });
 
-class Log extends React.PureComponent {
+type Props = {
+  log?: string
+}
+class Log extends React.PureComponent<Props> {
   componentDidMount() {
     if (this.scroller) {
       setTimeout(() => {

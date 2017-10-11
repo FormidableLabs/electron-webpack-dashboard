@@ -1,8 +1,12 @@
+// @flow
 import React from 'react';
 
 const electronSettings = require('electron').remote.require('electron-settings');
 
-class Settings extends React.Component {
+type Props = {
+  render: Function
+}
+class Settings extends React.Component<Props> {
   state = {
     fontSizeModifier: electronSettings.get('fontSizeModifier')
   };
@@ -24,7 +28,7 @@ class Settings extends React.Component {
   }
 }
 
-const withSettings = WrappedComponent => (props) => (
+const withSettings = WrappedComponent => props => (
   <Settings
     render={(settings) => <WrappedComponent {...props} {...settings} />}
   />

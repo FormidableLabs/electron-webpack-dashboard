@@ -4,7 +4,7 @@ import path from 'path';
 import chalk from 'chalk';
 import fs from 'fs';
 
-function CheckBuildsExist() {
+const checkBuildsExist = function () {
   const mainPath = path.join(__dirname, '..', '..', 'app', 'main.prod.js');
   const rendererPath = path.join(__dirname, '..', '..', 'app', 'dist', 'renderer.prod.js');
 
@@ -21,4 +21,4 @@ function CheckBuildsExist() {
   }
 }
 
-CheckBuildsExist();
+checkBuildsExist();

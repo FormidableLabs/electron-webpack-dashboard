@@ -1,4 +1,4 @@
-export function getAncestors(node) {
+export const getAncestors = function (node) {
   const ancestors = [];
   let current = node;
 
@@ -10,7 +10,7 @@ export function getAncestors(node) {
   return ancestors;
 }
 
-export function getAllChildren(rootNode) {
+export const getAllChildren = function (rootNode) {
   const allChildren = [];
 
   const getChildren = node => {
@@ -28,7 +28,7 @@ export function getAllChildren(rootNode) {
   return allChildren;
 }
 
-export function markDuplicates(nodes) {
+export const markDuplicates = function (nodes) {
   const fullNameList = {};
 
   nodes.forEach(item => {

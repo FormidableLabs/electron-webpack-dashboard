@@ -1,21 +1,21 @@
 const filesize = require('filesize');
 const path = require('path');
 
-export function getTotalModuleSize(modules) {
+export const getTotalModuleSize = function (modules) {
   return filesize(modules.reduce((total, module) => total + module.size, 0));
 }
 
-function getPosition(string, needle, i) {
+const getPosition = function (string, needle, i) {
   return string.split(needle, i).join(needle).length;
 }
 
-function getModulePath(identifier) {
+const getModulePath = function (identifier) {
   const loaderRegex = /.*!/;
   return identifier.replace(loaderRegex, '');
 }
 
 // eslint-disable-next-line max-statements
-function printDependencySizeTree(node, depth, outputFn) {
+const printDependencySizeTree = function (node, depth, outputFn) {
   const childrenBySize = node.children.sort((a, b) => b.size - a.size);
 
   const totalSize = node.size;
@@ -51,7 +51,7 @@ function printDependencySizeTree(node, depth, outputFn) {
   }
 }
 
-function printTrees(trees) {
+const printTrees = function (trees) {
   const output = [];
   trees.forEach(tree => {
     printDependencySizeTree(tree, 0, data => {
@@ -61,7 +61,7 @@ function printTrees(trees) {
   return output;
 }
 
-function bundleSizeTree(stats) {
+const bundleSizeTree = function (stats) {
   const statsTree = {
     packageName: '<root>',
     packageVersion: '',
@@ -140,7 +140,7 @@ function bundleSizeTree(stats) {
   return statsTree;
 }
 
-export function formatModules(data) {
+export const formatModules = function (data) {
   let trees;
   if (!data.hasOwnProperty('modules')) {
     trees = data.children.map(bundleSizeTree);

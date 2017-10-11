@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 import { getColor } from './colors';
 import { markDuplicates, getAllChildren } from './partitionedDataUtils';
 
-export function drawIcicle(data) {
+export const drawIcicle = function (data) {
   const width = 960;
   const height = 500;
   const FADE_OPACITY = 0.5;
@@ -42,11 +42,9 @@ export function drawIcicle(data) {
     .attr('y', d => d.y0)
     .attr('width', d => d.x1 - d.x0)
     .attr('height', d => d.y1 - d.y0)
-    .style('fill', d => getColor(d, true))
-    .on('click', click)
-    .on('mouseover', mouseover);
+    .style('fill', d => getColor(d, true));
 
-  function click(d) {
+  const click = function (d) {
     x.domain([d.x0, d.x1]);
     y.domain([d.y0, height]).range([d.depth ? 20 : 0, height]);
 
@@ -57,13 +55,10 @@ export function drawIcicle(data) {
       .attr('y', a => y(a.y0))
       .attr('width', a => x(a.x1) - x(a.x0))
       .attr('height', a => y(a.y1) - y(a.y0));
-  }
+  };
 
-  d3.select('#group').on('mouseleave', object => {
-    mouseleave(object);
-  });
 
-  function mouseover(object) {
+  const mouseover = function (object) {
     const childrenArray = getAllChildren(object);
     svg
       .selectAll('rect')
@@ -75,11 +70,19 @@ export function drawIcicle(data) {
       .filter(node => childrenArray.indexOf(node) >= 0)
       .style('opacity', 1)
       .style('stroke-width', 1);
-  }
+  };
 
-  function mouseleave() {
+  paths
+    .on('click', click)
+    .on('mouseover', mouseover);
+
+  const mouseleave = function () {
     paths.style('opacity', 1).style('stroke-width', 0);
-  }
+  };
+
+  d3.select('#group').on('mouseleave', object => {
+    mouseleave(object);
+  });
 
   d3.select(self.frameElement).style('height', `${height}px`);
 }

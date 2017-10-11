@@ -18,7 +18,7 @@ ansiHTML.setColors({
   darkgrey: '777',
 });
 
-export function formatProblems(bundle) {
+export const formatProblems = function (bundle) {
   const duplicates = formatDuplicates(bundle.duplicates);
   const versions = formatVersions(bundle.versions);
   if (!duplicates && !versions) {
@@ -33,7 +33,7 @@ export function formatProblems(bundle) {
   return `${duplicates}\n${versions}`;
 }
 
-export function formatBundleProblems(value) {
+export const formatBundleProblems = function (value) {
   const grouped = _.flow(
     _.groupBy('path'),
     _.mapValues(_.reduce((acc, bundle) => Object.assign({}, acc, bundle), {})),
