@@ -5,7 +5,7 @@ export default styled.div`
   display: flex;
   flex-direction: ${({ size }) => (size === 'small' ? 'row' : 'column')};
   flex: 1;
-  padding: 40px;
+  padding: ${({ size }) => (size === 'small' ? '20px' : '40px')};
   flex-wrap: wrap;
   overflow: scroll;
 

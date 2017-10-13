@@ -5,7 +5,7 @@ const zoomInAnimation = keyframes`${zoomIn}`;
 
 const flexStyleBySize = {
   large: '2 1 132px',
-  small: '1 1 100%'
+  small: '1'
 };
 
 export default styled.div`

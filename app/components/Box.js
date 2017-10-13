@@ -16,6 +16,15 @@ export const Box = styled.div`
   overflow: auto;
 `;
 
+export const TransparentBox = styled.div`
+  flex: ${({ size }) => (size === 'small' ? '1 1 100%' : '1 1 0')};
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  margin: 6px;
+  padding: 30px;
+`
+
 export const StatusBox = styled(Box)`
   display: block;
   flex: none;
