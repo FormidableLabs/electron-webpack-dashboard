@@ -201,7 +201,6 @@
     "electron-debug": "^1.2.0",
     "electron-is-dev": "^0.3.0",
     "electron-json-storage": "^3.0.7",
-    "electron-settings": "^3.1.2",
     "font-awesome": "^4.7.0",
     "handlebars": "^4.0.10",
     "history": "^4.6.3",

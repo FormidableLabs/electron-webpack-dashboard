@@ -7,6 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "electron-updater": "^2.8.7",
+    "electron-settings": "^3.1.2",
     "node-notifier": "^5.1.2",
     "socket.io": "1.7.3"
   },
