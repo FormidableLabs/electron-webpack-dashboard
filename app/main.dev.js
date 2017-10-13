@@ -82,19 +82,7 @@ const initAutoUpdate = function () {
   autoUpdater.checkForUpdates();
 }
 
-/**
- * Add event listeners...
- */
-
-app.on('window-all-closed', () => {
-  app.quit();
-});
-
-app.on('will-quit', () => {
-  globalShortcut.unregisterAll();
-});
-
-app.on('ready', async () => {
+const createWindow = async () => {
   if (
     process.env.NODE_ENV === 'development' ||
     process.env.DEBUG_PROD === 'true'
@@ -103,13 +91,13 @@ app.on('ready', async () => {
   }
 
   mainWindow = new BrowserWindow({
-    show: false,
     width: 1360,
     height: 820,
-    frame: false,
+    frame: true,
     minWidth: 500,
     minHeight: 700,
     backgroundColor: '#1D212D',
+    tabbingIdentifier: 'electronWebpackDashboard'
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
@@ -131,4 +119,22 @@ app.on('ready', async () => {
   const settings = require('./settings');
   settings.setDefaultSettings();
   settings.setupShortcuts();
+};
+
+/**
+ * Add event listeners...
+ */
+
+app.on('window-all-closed', () => {
+  app.quit();
 });
+
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll();
+});
+
+app.on('ready', createWindow);
+
+app.on('new-window-for-tab', () => {
+  createWindow()
+})

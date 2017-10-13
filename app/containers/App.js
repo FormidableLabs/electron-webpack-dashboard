@@ -2,10 +2,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Header from '../components/Header';
-import HeaderTitle from '../components/HeaderTitle';
-import HeaderIcons from '../components/HeaderIcons';
-import HeaderActions from '../components/HeaderActions';
+// import Header from '../components/Header';
+// import HeaderTitle from '../components/HeaderTitle';
+// import HeaderIcons from '../components/HeaderIcons';
+// import HeaderActions from '../components/HeaderActions';
 import Body from './Body';
 
 const FlexRoot = styled.div`
@@ -27,14 +27,14 @@ class App extends React.Component {
   render() {
     return (
       <FlexRoot>
-        <Header>
+        {/* <Header>
           <HeaderIcons />
           <HeaderTitle>Webpack Dashboard</HeaderTitle>
           <HeaderActions
             vizActive={this.state.vizActive}
             onVizToggle={this.handleVizToggle}
           />
-        </Header>
+        </Header> */}
         <Body vizActive={this.state.vizActive} />
       </FlexRoot>
     );
