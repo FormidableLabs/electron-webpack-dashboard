@@ -2,6 +2,9 @@
 import React from "react"
 import Modal from "./Modal"
 import styled from "styled-components"
+import RadioButton from "./Radio"
+import TextInput from "./Input"
+import Button from "./Button"
 
 const DEFAULT_PORT = 9838;
 
@@ -10,6 +13,12 @@ const InputContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
   font-size: 0.9em;
+  margin: 1em 0;
+`
+
+const Message = styled.div`
+  font-size: 0.9em;
+  margin-bottom: 1.5em;
 `
 
 type PortModalProps = {
@@ -43,48 +52,50 @@ export default class extends React.Component<PortModalProps> {
     return (
       <Modal
         isOpen={isOpen}
+        style={{ width: "500px" }}
+        renderTitle={(
+          <span>Connect to a Port</span>
+        )}
         renderContent={(
           <div>
-            <div>
-              Connect to a Webpack Dashboard instance running at:
-            </div>
+            <Message>
+              Connect to an instance of the Webpack Dashboard Plugin running at port:
+            </Message>
             <InputContainer>
-              <input
-                id="default"
-                type="radio"
-                name="port"
+              <RadioButton
                 value="default"
-                checked={this.state.selectedItem === "default"}
+                name="port"
                 onChange={this.handleItemClick}
+                selected={this.state.selectedItem === "default"}
+                label={`Default Port at ${DEFAULT_PORT}.`}
               />
-              <label htmlFor="default">
-                Default Port ({DEFAULT_PORT})
-              </label>
             </InputContainer>
             <InputContainer>
-              <input
-                id="custom"
-                type="radio"
-                name="port"
+              <RadioButton
                 value="custom"
-                checked={this.state.selectedItem === "custom"}
+                name="port"
                 onChange={this.handleItemClick}
-              />
-              <label htmlFor="custom">
-                Custom Port at
-              </label>
-              <input
-                type="text"
-                value={this.state.customPortValue}
-                onChange={this.handleCustomPortValueOnChange}
+                selected={this.state.selectedItem === "custom"}
+                label={(
+                  <span>
+                    Custom Port at
+                    <TextInput
+                      value={this.state.customPortValue}
+                      onChange={this.handleCustomPortValueOnChange}
+                      style={{ width: "70px", margin: "0 4px 0 7px" }}
+                    />.
+                  </span>
+                )}
               />
             </InputContainer>
-            <button
-              onClick={this.handleConnectButtonClick}
-            >
-              Connect
-            </button>
           </div>
+        )}
+        renderButtons={(
+          <Button
+            onClick={this.handleConnectButtonClick}
+          >
+            Connect
+          </Button>
         )}
       />
     );

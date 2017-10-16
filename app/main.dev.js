@@ -136,5 +136,5 @@ app.on('will-quit', () => {
 app.on('ready', createWindow);
 
 app.on('new-window-for-tab', () => {
-  createWindow()
-})
+  createWindow();
+});
