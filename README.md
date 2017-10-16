@@ -20,8 +20,6 @@ The original dashboard felt like working at NASA. 50 years ago. I hope this dash
 
 ## Getting Started
 
-#### NOTE: THIS IS THE INITIAL BETA. THINGS WILL BE BROKEN. PROBABLY.
-
 ### Install
 
 Download the version for your OS here:
@@ -40,9 +38,9 @@ To receive a complete analysis of your bundle, including modules, assets, and pr
 
 ### Configuring Your Project
 
-First, in your project, install the `webpack-dashboard` beta release:
+First, in your project, install the `webpack-dashboard` plugin:
 
-`npm install webpack-dashboard@next --save-dev`
+`npm install webpack-dashboard --save-dev`
 
 Next, in any Webpack config you want telemetry on, import the plugin:
 
