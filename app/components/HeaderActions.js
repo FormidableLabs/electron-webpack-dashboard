@@ -9,6 +9,7 @@ const HeaderAction = styled.button`
   border: 0;
   background: none;
   outline: none;
+  font-family: 'montserratlight';
   color: ${props => (props.vizActive ? '#00d0ff' : 'white')};
   display: inline-block;
   margin-left: 10px;
@@ -21,6 +22,12 @@ const HeaderAction = styled.button`
   }
 `;
 
+const HeaderActionContent = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+`
+
 const HeaderActionWrapper = styled.div`
   position: absolute;
   right: 50px;
@@ -28,21 +35,34 @@ const HeaderActionWrapper = styled.div`
   transform: translateY(-50%);
 `;
 
+const Label = styled.span`
+  font-size: 1.25em;
+  margin: 0 0 0 0.33em;
+`
+
 type Props = {
   vizActive: bool,
-  onVizToggle: Function
+  onVizToggle: Function,
+  onPortModalToggle: Function
 }
-const HeaderActions = ({ vizActive, onVizToggle }: Props) =>
+const HeaderActions = ({ vizActive, onVizToggle, onPortModalToggle }: Props) =>
   (<HeaderActionWrapper>
-    <HeaderAction onClick={onVizToggle} vizActive={vizActive}>
-      <FaEye width="24px" height="24px" />
+    <HeaderAction
+      onClick={onVizToggle}
+      vizActive={vizActive}
+    >
+      <HeaderActionContent>
+        <FaEye width="24px" height="24px" />
+        <Label>Modules</Label>
+      </HeaderActionContent>
     </HeaderAction>
     <HeaderAction
-      onClick={() => {
-        alert("Port configuration didn't make it to this beta. Sorry!"); // eslint-disable-line no-alert
-      }}
+      onClick={onPortModalToggle}
     >
-      <FaCog width="24px" height="24px" />
+      <HeaderActionContent>
+        <FaCog width="24px" height="24px" />
+        <Label>Port Config</Label>
+      </HeaderActionContent>
     </HeaderAction>
   </HeaderActionWrapper>);
 

@@ -108,7 +108,7 @@ const createWindow = async () => {
   initAutoUpdate();
 
   const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu({ 
+  menuBuilder.buildMenu({
     actions: { createWindow }
   });
   const settings = require('./settings');
@@ -116,32 +116,38 @@ const createWindow = async () => {
   settings.setupShortcuts();
 };
 
-/**
- * Add tasks for Windows Taskbar
- */
-app.setUserTasks([{
-  program: process.execPath,
-  arguments: '--new-window',
-  iconPath: process.execPath,
-  iconIndex: 0,
-  title: 'New Dashboard',
-  description: 'Connect to a new Webpack Dashboard instance'
-}]);
+const startApp = () => {
+  /**
+   * Add new dashboard task for Windows taskbar
+   * Note: This only works in packaged versions of the app
+   */
+  if (process.platform === 'win32') {
+    app.setUserTasks([{
+      program: process.execPath,
+      arguments: '--new-window',
+      iconPath: process.execPath,
+      iconIndex: 0,
+      title: 'New Dashboard',
+      description: 'Connect to a new Webpack Dashboard instance'
+    }]);
+  }
 
-/**
- * Add event listeners...
- */
+  /**
+   * Add event listeners
+   */
+  app.on('window-all-closed', () => {
+    app.quit();
+  });
 
-app.on('window-all-closed', () => {
-  app.quit();
-});
+  app.on('will-quit', () => {
+    globalShortcut.unregisterAll();
+  });
 
-app.on('will-quit', () => {
-  globalShortcut.unregisterAll();
-});
+  app.on('ready', createWindow);
 
-app.on('ready', createWindow);
+  app.on('new-window-for-tab', () => {
+    createWindow();
+  });
+};
 
-app.on('new-window-for-tab', () => {
-  createWindow();
-});
+startApp();

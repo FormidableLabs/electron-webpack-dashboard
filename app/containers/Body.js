@@ -25,7 +25,8 @@ import BoxHeader from '../components/BoxHeader';
 
 type Props = {
   vizActive: bool,
-
+  onPortModalToggle: Function,
+  portModalVisible: bool
 }
 class Body extends React.PureComponent<Props> {
   state = {
@@ -35,7 +36,6 @@ class Body extends React.PureComponent<Props> {
     problems: null,
     problemsError: false,
     progress: 0,
-    portModalOpen: false,
     sizes: null,
     sizesError: false,
     stats: {},
@@ -58,20 +58,26 @@ class Body extends React.PureComponent<Props> {
   componentDidMount() {
     window.addEventListener('resize', this.checkLayout);
     this.checkLayout();
-    setTimeout(() => this.setState(() => ({
-      portModalOpen: true
-    })), 200)
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.checkLayout);
-    if (this.server) {
-      this.server.disconnect();
-    }
+    this.disconnectAllSockets();
   }
-  connectToPort = port => {
-    this.setState(() => ({ portModalOpen: false }))
+
+  disconnectAllSockets = () => new Promise(resolve => {
+    if (this.server) {
+      return this.server.close(() => resolve())
+    }
+    return resolve()
+  });
+
+  connectToPort = async port => {
+    this.props.onPortModalToggle();
+    await this.disconnectAllSockets();
     try {
-      this.server = new SocketIO(port);
+      this.server = new SocketIO(port, {
+        reconnect: false
+      });
     } catch (e) {
       alert(e); // eslint-disable-line no-alert
     }
@@ -135,7 +141,7 @@ class Body extends React.PureComponent<Props> {
         </Container>
       : <Container size={this.state.breakpoint}>
           <PortModal
-            isOpen={this.state.portModalOpen}
+            isOpen={this.props.portModalVisible}
             handlePortSelection={this.connectToPort}
           />
           <Row size={this.state.breakpoint}>
