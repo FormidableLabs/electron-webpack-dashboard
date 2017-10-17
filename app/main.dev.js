@@ -17,8 +17,6 @@ import isDev from 'electron-is-dev';
 
 import MenuBuilder from './menu';
 
-let mainWindow = null;
-
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
@@ -90,7 +88,7 @@ const createWindow = async () => {
     await installExtensions();
   }
 
-  mainWindow = new BrowserWindow({
+  const mainWindow = new BrowserWindow({
     width: 1360,
     height: 820,
     frame: true,
@@ -107,19 +105,28 @@ const createWindow = async () => {
     mainWindow.focus();
   });
 
-  mainWindow.on('closed', () => {
-    mainWindow = null;
-  });
-
   initAutoUpdate();
 
   const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
-
+  menuBuilder.buildMenu({ 
+    actions: { createWindow }
+  });
   const settings = require('./settings');
   settings.setDefaultSettings();
   settings.setupShortcuts();
 };
+
+/**
+ * Add tasks for Windows Taskbar
+ */
+app.setUserTasks([{
+  program: process.execPath,
+  arguments: '--new-window',
+  iconPath: process.execPath,
+  iconIndex: 0,
+  title: 'New Dashboard',
+  description: 'Connect to a new Webpack Dashboard instance'
+}]);
 
 /**
  * Add event listeners...
