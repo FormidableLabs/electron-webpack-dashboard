@@ -5,7 +5,7 @@ export default styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
-  flex: 0 0 50px;
+  flex: 0 0 40px;
   -webkit-user-select: none;
   position: relative;
 `;

@@ -83,7 +83,7 @@ class Body extends React.PureComponent<Props> {
     }
     if (this.server) {
       const window = remote.getCurrentWindow();
-      window.setTitle(`Webpack Dashboard — ${port}`);
+      window.setTitle(`Webpack Dashboard — Port: ${port}`);
       this.server.on('connection', socket => {
         socket.on('message', message => {
           this.setState(state => handleSocketData(state, message));

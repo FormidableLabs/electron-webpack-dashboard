@@ -10,7 +10,7 @@
  *
  * @flow
  */
-import { app, BrowserWindow, globalShortcut } from 'electron';
+import { app, BrowserWindow, globalShortcut, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import notifier from 'node-notifier';
 import isDev from 'electron-is-dev';
@@ -80,15 +80,8 @@ const initAutoUpdate = function () {
   autoUpdater.checkForUpdates();
 }
 
-const createWindow = async () => {
-  if (
-    process.env.NODE_ENV === 'development' ||
-    process.env.DEBUG_PROD === 'true'
-  ) {
-    await installExtensions();
-  }
-
-  const mainWindow = new BrowserWindow({
+const newWindow = () => new Promise(resolve => {
+  const window = new BrowserWindow({
     width: 1360,
     height: 820,
     frame: true,
@@ -98,7 +91,40 @@ const createWindow = async () => {
     tabbingIdentifier: 'electronWebpackDashboard'
   });
 
-  mainWindow.loadURL(`file://${__dirname}/app.html`);
+  const menuBuilder = new MenuBuilder(window);
+  menuBuilder.buildMenu({
+    // eslint-disable-next-line no-use-before-define
+    actions: { createWindow: addNewDashbaord }
+  });
+
+  window.loadURL(`file://${__dirname}/app.html`);
+  window.once('ready-to-show', () => resolve(window));
+});
+
+const addNewDashbaord = async () => {
+  const currentWindow = BrowserWindow.getFocusedWindow();
+  const window = await newWindow();
+
+  if (process.platform === 'darwin' && currentWindow.addTabbedWindow) {
+    currentWindow.addTabbedWindow(window);
+    return;
+  }
+
+  window.show();
+  window.focus();
+}
+
+const createMainWindow = async () => {
+  if (
+    process.env.NODE_ENV === 'development' ||
+    process.env.DEBUG_PROD === 'true'
+  ) {
+    await installExtensions();
+  }
+
+  const mainWindow = await newWindow();
+  mainWindow.show();
+  mainWindow.focus();
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
@@ -107,10 +133,6 @@ const createWindow = async () => {
 
   initAutoUpdate();
 
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu({
-    actions: { createWindow }
-  });
   const settings = require('./settings');
   settings.setDefaultSettings();
   settings.setupShortcuts();
@@ -143,11 +165,9 @@ const startApp = () => {
     globalShortcut.unregisterAll();
   });
 
-  app.on('ready', createWindow);
-
-  app.on('new-window-for-tab', () => {
-    createWindow();
-  });
+  app.on('ready', createMainWindow);
+  app.on('new-window-for-tab', addNewDashbaord);
+  ipcMain.on('new-dashboard', addNewDashbaord);
 };
 
 startApp();

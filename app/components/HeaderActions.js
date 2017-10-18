@@ -3,6 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 import FaCog from 'react-icons/lib/fa/cog';
 import FaEye from 'react-icons/lib/fa/eye';
+import FaClone from 'react-icons/lib/fa/clone';
+import { ipcRenderer } from 'electron';
 
 const HeaderAction = styled.button`
   -webkit-app-region: no-drag;
@@ -36,7 +38,7 @@ const HeaderActionWrapper = styled.div`
 `;
 
 const Label = styled.span`
-  font-size: 1.25em;
+  font-size: 1.1em;
   margin: 0 0 0 0.33em;
 `
 
@@ -48,11 +50,19 @@ type Props = {
 const HeaderActions = ({ vizActive, onVizToggle, onPortModalToggle }: Props) =>
   (<HeaderActionWrapper>
     <HeaderAction
+      onClick={() => ipcRenderer.send('new-dashboard')}
+    >
+      <HeaderActionContent>
+        <FaClone width="20px" height="20px" />
+        <Label>New Dashboard</Label>
+      </HeaderActionContent>
+    </HeaderAction>
+    <HeaderAction
       onClick={onVizToggle}
       vizActive={vizActive}
     >
       <HeaderActionContent>
-        <FaEye width="24px" height="24px" />
+        <FaEye width="20px" height="20px" />
         <Label>Modules</Label>
       </HeaderActionContent>
     </HeaderAction>
@@ -60,7 +70,7 @@ const HeaderActions = ({ vizActive, onVizToggle, onPortModalToggle }: Props) =>
       onClick={onPortModalToggle}
     >
       <HeaderActionContent>
-        <FaCog width="24px" height="24px" />
+        <FaCog width="20px" height="20px" />
         <Label>Port Config</Label>
       </HeaderActionContent>
     </HeaderAction>
