@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import SocketIO from 'socket.io';
-import { shell } from 'electron';
+import { shell, remote } from 'electron';
 import ReactTooltip from 'react-tooltip';
 
 import handleSocketData from '../util/handleSocketData';
@@ -13,6 +13,7 @@ import Modules from './Modules';
 import Problems from './Problems';
 import Visualization from './Visualization';
 import NodeEnvironment from './NodeEnvironment';
+import PortModal from '../components/PortModal';
 
 import Row from '../components/Row';
 import Column from '../components/Column';
@@ -21,11 +22,11 @@ import DoubleBox from '../components/DoubleBox';
 import Container from '../components/Container';
 import BoxHeader from '../components/BoxHeader';
 
-const DEFAULT_PORT = 9838;
 
 type Props = {
   vizActive: bool,
-
+  onPortModalToggle: Function,
+  portModalVisible: bool
 }
 class Body extends React.PureComponent<Props> {
   state = {
@@ -54,29 +55,41 @@ class Body extends React.PureComponent<Props> {
     assetsLoading: false,
     problemsLoading: false,
   };
-  componentWillMount() {
-    try {
-      this.server = new SocketIO(DEFAULT_PORT);
-    } catch (e) {
-      alert(e); // eslint-disable-line no-alert
-    }
-    if (this.server) {
-      this.server.on('connection', socket => {
-        socket.on('message', message => {
-          this.setState(state => handleSocketData(state, message));
-          ReactTooltip.rebuild();
-        });
-      });
-    }
-  }
   componentDidMount() {
     window.addEventListener('resize', this.checkLayout);
     this.checkLayout();
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.checkLayout);
+    this.disconnectAllSockets();
+  }
+
+  disconnectAllSockets = () => new Promise(resolve => {
     if (this.server) {
-      this.server.disconnect();
+      return this.server.close(() => resolve())
+    }
+    return resolve()
+  });
+
+  connectToPort = async port => {
+    this.props.onPortModalToggle();
+    await this.disconnectAllSockets();
+    try {
+      this.server = new SocketIO(port, {
+        reconnect: false
+      });
+    } catch (e) {
+      alert(e); // eslint-disable-line no-alert
+    }
+    if (this.server) {
+      const window = remote.getCurrentWindow();
+      window.setTitle(`Webpack Dashboard — Port: ${port}`);
+      this.server.on('connection', socket => {
+        socket.on('message', message => {
+          this.setState(state => handleSocketData(state, message));
+          ReactTooltip.rebuild();
+        });
+      });
     }
   }
   checkLayout = () => {
@@ -127,6 +140,10 @@ class Body extends React.PureComponent<Props> {
           <ReactTooltip place="top" type="error" effect="solid" />
         </Container>
       : <Container size={this.state.breakpoint}>
+          <PortModal
+            isOpen={this.props.portModalVisible}
+            handlePortSelection={this.connectToPort}
+          />
           <Row size={this.state.breakpoint}>
             <DoubleBox size={this.state.breakpoint}>
               <Log log={this.state.log} />

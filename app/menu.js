@@ -10,7 +10,19 @@ export default class MenuBuilder {
     this.mainWindow = mainWindow;
   }
 
-  buildMenu() {
+  get subMenuHelp() {
+    return {
+      label: 'Help',
+      submenu: [
+        { label: 'Learn More', click() { shell.openExternal('https://github.com/FormidableLabs/electron-webpack-dashboard'); } },
+        { label: 'Issues', click() { shell.openExternal('https://github.com/FormidableLabs/electron-webpack-dashboard/issues'); } },
+        { type: 'separator' },        
+        { label: 'Webpack Dashboard Plugin', click() { shell.openExternal('https://github.com/FormidableLabs/webpack-dashboard'); } }
+      ]
+    };
+  }
+
+  buildMenu(options) {
     if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
       this.setupDevelopmentEnvironment();
     }
@@ -20,7 +32,7 @@ export default class MenuBuilder {
     if (process.platform === 'darwin') {
       template = this.buildDarwinTemplate();
     } else {
-      template = this.buildDefaultTemplate();
+      template = this.buildDefaultTemplate(options);
     }
 
     const menu = Menu.buildFromTemplate(template);
@@ -60,18 +72,6 @@ export default class MenuBuilder {
         { label: 'Quit', accelerator: 'Command+Q', click: () => { app.quit(); } }
       ]
     };
-    const subMenuEdit = {
-      label: 'Edit',
-      submenu: [
-        { label: 'Undo', accelerator: 'Command+Z', selector: 'undo:' },
-        { label: 'Redo', accelerator: 'Shift+Command+Z', selector: 'redo:' },
-        { type: 'separator' },
-        { label: 'Cut', accelerator: 'Command+X', selector: 'cut:' },
-        { label: 'Copy', accelerator: 'Command+C', selector: 'copy:' },
-        { label: 'Paste', accelerator: 'Command+V', selector: 'paste:' },
-        { label: 'Select All', accelerator: 'Command+A', selector: 'selectAll:' }
-      ]
-    };
     const subMenuViewDev = {
       label: 'View',
       submenu: [
@@ -95,15 +95,6 @@ export default class MenuBuilder {
         { label: 'Bring All to Front', selector: 'arrangeInFront:' }
       ]
     };
-    const subMenuHelp = {
-      label: 'Help',
-      submenu: [
-        { label: 'Learn More', click() { shell.openExternal('http://electron.atom.io'); } },
-        { label: 'Documentation', click() { shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme'); } },
-        { label: 'Community Discussions', click() { shell.openExternal('https://discuss.atom.io/c/electron'); } },
-        { label: 'Search Issues', click() { shell.openExternal('https://github.com/atom/electron/issues'); } }
-      ]
-    };
 
     const subMenuView = process.env.NODE_ENV === 'development'
       ? subMenuViewDev
@@ -111,19 +102,19 @@ export default class MenuBuilder {
 
     return [
       subMenuAbout,
-      subMenuEdit,
       subMenuView,
       subMenuWindow,
-      subMenuHelp
+      this.subMenuHelp
     ];
   }
 
-  buildDefaultTemplate() {
+  buildDefaultTemplate(options) {
     const templateDefault = [{
       label: '&File',
       submenu: [{
-        label: '&Open',
-        accelerator: 'Ctrl+O'
+        label: '&New Dashboard',
+        accelerator: 'Ctrl+N',
+        click: () => options.actions.createWindow()
       }, {
         label: '&Close',
         accelerator: 'Ctrl+W',
@@ -158,30 +149,8 @@ export default class MenuBuilder {
           this.mainWindow.setFullScreen(!this.mainWindow.isFullScreen());
         }
       }]
-    }, {
-      label: 'Help',
-      submenu: [{
-        label: 'Learn More',
-        click() {
-          shell.openExternal('http://electron.atom.io');
-        }
-      }, {
-        label: 'Documentation',
-        click() {
-          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme');
-        }
-      }, {
-        label: 'Community Discussions',
-        click() {
-          shell.openExternal('https://discuss.atom.io/c/electron');
-        }
-      }, {
-        label: 'Search Issues',
-        click() {
-          shell.openExternal('https://github.com/atom/electron/issues');
-        }
-      }]
-    }];
+    }, { ...this.subMenuHelp }
+    ];
 
     return templateDefault;
   }

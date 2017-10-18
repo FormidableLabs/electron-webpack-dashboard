@@ -10,14 +10,12 @@
  *
  * @flow
  */
-import { app, BrowserWindow, globalShortcut } from 'electron';
+import { app, BrowserWindow, globalShortcut, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import notifier from 'node-notifier';
 import isDev from 'electron-is-dev';
 
 import MenuBuilder from './menu';
-
-let mainWindow = null;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -82,19 +80,41 @@ const initAutoUpdate = function () {
   autoUpdater.checkForUpdates();
 }
 
-/**
- * Add event listeners...
- */
+const newWindow = () => new Promise(resolve => {
+  const window = new BrowserWindow({
+    width: 1360,
+    height: 820,
+    frame: true,
+    minWidth: 500,
+    minHeight: 700,
+    backgroundColor: '#1D212D',
+    tabbingIdentifier: 'electronWebpackDashboard'
+  });
 
-app.on('window-all-closed', () => {
-  app.quit();
+  const menuBuilder = new MenuBuilder(window);
+  menuBuilder.buildMenu({
+    // eslint-disable-next-line no-use-before-define
+    actions: { createWindow: addNewDashbaord }
+  });
+
+  window.loadURL(`file://${__dirname}/app.html`);
+  window.once('ready-to-show', () => resolve(window));
 });
 
-app.on('will-quit', () => {
-  globalShortcut.unregisterAll();
-});
+const addNewDashbaord = async () => {
+  const currentWindow = BrowserWindow.getFocusedWindow();
+  const window = await newWindow();
 
-app.on('ready', async () => {
+  if (process.platform === 'darwin' && currentWindow.addTabbedWindow) {
+    currentWindow.addTabbedWindow(window);
+    return;
+  }
+
+  window.show();
+  window.focus();
+}
+
+const createMainWindow = async () => {
   if (
     process.env.NODE_ENV === 'development' ||
     process.env.DEBUG_PROD === 'true'
@@ -102,33 +122,52 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
-  mainWindow = new BrowserWindow({
-    show: false,
-    width: 1360,
-    height: 820,
-    frame: false,
-    minWidth: 500,
-    minHeight: 700,
-    backgroundColor: '#1D212D',
-  });
-
-  mainWindow.loadURL(`file://${__dirname}/app.html`);
+  const mainWindow = await newWindow();
+  mainWindow.show();
+  mainWindow.focus();
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
     mainWindow.focus();
   });
 
-  mainWindow.on('closed', () => {
-    mainWindow = null;
-  });
-
   initAutoUpdate();
-
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
 
   const settings = require('./settings');
   settings.setDefaultSettings();
   settings.setupShortcuts();
-});
+};
+
+const startApp = () => {
+  /**
+   * Add new dashboard task for Windows taskbar
+   * Note: This only works in packaged versions of the app
+   */
+  if (process.platform === 'win32') {
+    app.setUserTasks([{
+      program: process.execPath,
+      arguments: '--new-window',
+      iconPath: process.execPath,
+      iconIndex: 0,
+      title: 'New Dashboard',
+      description: 'Connect to a new Webpack Dashboard instance'
+    }]);
+  }
+
+  /**
+   * Add event listeners
+   */
+  app.on('window-all-closed', () => {
+    app.quit();
+  });
+
+  app.on('will-quit', () => {
+    globalShortcut.unregisterAll();
+  });
+
+  app.on('ready', createMainWindow);
+  app.on('new-window-for-tab', addNewDashbaord);
+  ipcMain.on('new-dashboard', addNewDashbaord);
+};
+
+startApp();
