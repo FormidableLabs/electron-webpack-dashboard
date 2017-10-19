@@ -3,10 +3,10 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
 
-import Text from '../components/Text';
-import Error from '../components/Error';
-import Loading from '../components/Loading';
-import { ScrollerBase } from '../components/ScrollerBase';
+import Text from '../components/text';
+import Error from '../components/error';
+import Loading from '../components/loading';
+import { ScrollerBase } from '../components/scroller-base';
 
 const fadeInAnimation = keyframes`${fadeIn}`;
 const alertIcon = require('../assets/alert-icon.svg');

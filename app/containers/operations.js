@@ -4,7 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
 import { Circle } from 'rc-progress';
 
-import BoxHeader from '../components/BoxHeader';
+import BoxHeader from '../components/box-header';
 
 const fadeInAnimation = keyframes`${fadeIn}`;
 

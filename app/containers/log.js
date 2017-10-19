@@ -2,9 +2,9 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
-import withSettings from './withSettings';
+import withSettings from './with-settings';
 import getFontSize from '../util/get-font-size';
-import { ScrollerBase } from '../components/ScrollerBase';
+import { ScrollerBase } from '../components/scroller-base';
 
 const fadeInAnimation = keyframes`${fadeIn}`;
 

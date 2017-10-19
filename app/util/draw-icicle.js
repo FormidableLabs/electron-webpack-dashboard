@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import { getColor } from './colors';
-import { markDuplicates, getAllChildren } from './partitionedDataUtils';
+import { markDuplicates, getAllChildren } from './partitioned-data-utils';
 
 export const drawIcicle = function (data) {
   const width = 960;

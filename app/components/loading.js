@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import Text from './Text';
+import Text from './text';
 
 class Loading extends React.Component {
   state = {

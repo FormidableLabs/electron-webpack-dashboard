@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import Root from './containers/App';
+import Root from './containers/app';
 import './fonts/stylesheet.css';
 import './app.global.css';
 

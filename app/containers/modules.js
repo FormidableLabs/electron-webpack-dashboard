@@ -4,12 +4,12 @@ import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
 import { Line } from 'rc-progress';
 
-import Text from '../components/Text';
-import Error from '../components/Error';
-import Loading from '../components/Loading';
-import withSettings from './withSettings';
+import Text from '../components/text';
+import Error from '../components/error';
+import Loading from '../components/loading';
+import withSettings from './with-settings';
 import getFontSize from '../util/get-font-size';
-import { ScrollerBase } from '../components/ScrollerBase';
+import { ScrollerBase } from '../components/scroller-base';
 
 const fadeInAnimation = keyframes`${fadeIn}`;
 

@@ -1,10 +1,10 @@
 // @flow
 import React from "react"
-import Modal from "./Modal"
+import Modal from "./modal"
 import styled from "styled-components"
-import RadioButton from "./Radio"
-import TextInput from "./Input"
-import Button from "./Button"
+import RadioButton from "./radio"
+import TextInput from "./input"
+import Button from "./button"
 
 const DEFAULT_PORT = 9838;
 

@@ -1,6 +1,6 @@
 import ansiHTML from 'ansi-html';
 import { getAssetsData } from './stat-utils';
-import buildHierarchy from './buildHierarchy';
+import buildHierarchy from './build-hierarchy';
 import { formatModules, getTotalModuleSize } from '../util/format-modules';
 import {
   formatMinModules,
