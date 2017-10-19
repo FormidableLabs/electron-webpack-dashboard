@@ -76,7 +76,6 @@ class Body extends React.PureComponent<Props> {
   connectToPort = async port => {
     this.props.onPortModalToggle();
     await this.disconnectAllSockets();
-
     try {
       this.server = new SocketIO(port, {
         reconnect: false
@@ -84,16 +83,8 @@ class Body extends React.PureComponent<Props> {
     } catch (e) {
       alert(e); // eslint-disable-line no-alert
     }
-
     if (this.server) {
       const window = remote.getCurrentWindow();
-
-      const { activeConnections } = remote.getGlobal('dashboard');
-      remote.getGlobal('dashboard').activeConnections = [
-        ...activeConnections,
-        parseInt(port, 10)
-      ];
-
       window.setTitle(`Webpack Dashboard — Port: ${port}`);
       this.server.on('connection', socket => {
         socket.on('message', message => {
