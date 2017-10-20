@@ -17,6 +17,8 @@ import isDev from 'electron-is-dev';
 
 import MenuBuilder from './menu';
 
+const webpackProtocolSchema = 'x-webpack-dashboard';
+
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
@@ -152,6 +154,16 @@ const startApp = () => {
       title: 'New Dashboard',
       description: 'Connect to a new Webpack Dashboard instance'
     }]);
+  }
+
+  /**
+   * Set up app to open when the user calls a URI
+   * with the protocol "x-webpack-dashboard://".
+   * This way, the client webpack script can open
+   * this app programmatically
+   */
+  if (process.env.NODE_ENV === 'production') {
+    app.setAsDefaultProtocolClient(webpackProtocolSchema);
   }
 
   /**

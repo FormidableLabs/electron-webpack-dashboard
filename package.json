@@ -80,7 +80,15 @@
     },
     "publish": {
       "provider": "github"
-    }
+    },
+    "protocols": [
+      {
+        "name": "Webpack Dashboard URL",
+        "schemes": [
+          "x-webpack-dashboard"
+        ]
+      }
+    ]
   },
   "license": "MIT",
   "bugs": {
