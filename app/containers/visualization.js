@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Text from '../components/Text';
-import Loading from '../components/Loading';
+import Text from '../components/text';
+import Loading from '../components/loading';
 
-import formatSize from '../util/formatSize';
-import buildHierarchy from '../util/buildHierarchy';
-import { drawSunburst } from '../util/drawSunburst';
+import formatSize from '../util/format-size';
+import buildHierarchy from '../util/build-hierarchy';
+import { drawSunburst } from '../util/draw-sunburst';
 
 const Tooltip = styled.div`
   background: rgba(0, 0, 0, 0.25);

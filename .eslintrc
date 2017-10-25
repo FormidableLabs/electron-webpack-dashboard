@@ -16,7 +16,6 @@
     "es6": true
   },
   "rules": {
-    "filenames/match-regex": "off",
     "arrow-parens": ["off"],
     "consistent-return": "off",
     "complexity": "off",

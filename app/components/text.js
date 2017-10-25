@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import withSettings from '../containers/withSettings';
+import withSettings from '../containers/with-settings';
 import getFontSize from '../util/get-font-size';
 
 export default withSettings(styled.p`

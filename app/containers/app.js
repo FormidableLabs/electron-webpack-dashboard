@@ -2,9 +2,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Header from '../components/Header';
-import HeaderActions from '../components/HeaderActions';
-import Body from './Body';
+import Header from '../components/header';
+import HeaderActions from '../components/header-actions';
+import Body from './body';
 
 const FlexRoot = styled.div`
   display: flex;

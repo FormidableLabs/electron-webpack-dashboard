@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import { getColor } from './colors';
-import { markDuplicates, getAllChildren } from './partitionedDataUtils';
-import formatSize from './formatSize';
+import { markDuplicates, getAllChildren } from './partitioned-data-utils';
+import formatSize from './format-size';
 
 export const drawSunburst = function (data) {
   const width = 1000;

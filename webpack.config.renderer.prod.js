@@ -9,7 +9,7 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import merge from 'webpack-merge';
 import BabiliPlugin from 'babili-webpack-plugin';
 import baseConfig from './webpack.config.base';
-import checkNodeEnv from './internals/scripts/CheckNodeEnv';
+import checkNodeEnv from './internals/scripts/check-node-env';
 
 checkNodeEnv('production');
 

@@ -4,23 +4,23 @@ import SocketIO from 'socket.io';
 import { shell, remote } from 'electron';
 import ReactTooltip from 'react-tooltip';
 
-import handleSocketData from '../util/handleSocketData';
+import handleSocketData from '../util/handle-socket-data';
 
-import Log from './Log';
-import Operations from './Operations';
-import Assets from './Assets';
-import Modules from './Modules';
-import Problems from './Problems';
-import Visualization from './Visualization';
-import NodeEnvironment from './NodeEnvironment';
-import PortModal from '../components/PortModal';
+import Log from './log';
+import Operations from './operations';
+import Assets from './assets';
+import Modules from './modules';
+import Problems from './problems';
+import Visualization from './visualization';
+import NodeEnvironment from './node-environment';
+import PortModal from '../components/port-modal';
 
-import Row from '../components/Row';
-import Column from '../components/Column';
-import { Box, StatusBox } from '../components/Box';
-import DoubleBox from '../components/DoubleBox';
-import Container from '../components/Container';
-import BoxHeader from '../components/BoxHeader';
+import Row from '../components/row';
+import Column from '../components/column';
+import { Box, StatusBox } from '../components/box';
+import DoubleBox from '../components/double-box';
+import Container from '../components/container';
+import BoxHeader from '../components/box-header';
 
 
 type Props = {
@@ -55,10 +55,12 @@ class Body extends React.PureComponent<Props> {
     assetsLoading: false,
     problemsLoading: false,
   };
+
   componentDidMount() {
     window.addEventListener('resize', this.checkLayout);
     this.checkLayout();
   }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.checkLayout);
     this.disconnectAllSockets();
@@ -92,6 +94,7 @@ class Body extends React.PureComponent<Props> {
       });
     }
   }
+
   checkLayout = () => {
     let breakpoint;
     const width = window.innerWidth;
