@@ -13,7 +13,7 @@ import { ScrollerBase } from '../components/scroller-base';
 const fadeInAnimation = keyframes`${fadeIn}`;
 
 const ProblemContainer = withSettings(styled(ScrollerBase)`
-  flex: 0;
+  flex: 1;
   white-space: pre-wrap;
   font-family: 'menloregular';
   font-size: ${({ fontSizeModifier }) => getFontSize(11, fontSizeModifier)}px;
