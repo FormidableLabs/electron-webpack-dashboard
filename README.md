@@ -18,6 +18,10 @@ So here we are.
 
 The original dashboard felt like working at NASA. 50 years ago. I hope this dashboard feels like working at NASA today. Or at Westworld. Or like the beginning of Westworld at least.
 
+### Maintenance Status: Archived
+
+This project is no longer maintained by Formidable. We are no longer responding to issues or pull requests unless they relate to security concerns. We encourage interested developers to fork this project and make it their own!
+
 ## Getting Started
 
 ### Install
