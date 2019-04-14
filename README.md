@@ -1,3 +1,6 @@
+[![Maintenance Status][maintenance-image]](#maintenance-status)
+
+
 <h1 align="center">electron-webpack-dashboard</h1>
 
 <h4 align="center">
@@ -17,10 +20,6 @@ Making things work across a variety of different terminal environments is pretty
 So here we are.
 
 The original dashboard felt like working at NASA. 50 years ago. I hope this dashboard feels like working at NASA today. Or at Westworld. Or like the beginning of Westworld at least.
-
-### Maintenance Status: Archived
-
-This project is no longer maintained by Formidable. We are no longer responding to issues or pull requests unless they relate to security concerns. We encourage interested developers to fork this project and make it their own!
 
 ## Getting Started
 
@@ -68,3 +67,9 @@ Simply hit save on a project running `webpack-dev-server`, or run your build tas
 ### Credits
 
 The visualizations view was essentially recreated using code from [https://github.com/chrisbateman/webpack-visualizer](https://github.com/chrisbateman/webpack-visualizer), and I am forever grateful that I didn't have to figure this stuff out on my own.
+
+## Maintenance Status
+
+**Archived:** This project is no longer maintained by Formidable. We are no longer responding to issues or pull requests unless they relate to security concerns. We encourage interested developers to fork this project and make it their own!
+
+[maintenance-image]: https://img.shields.io/badge/maintenance-archived-red.svg
