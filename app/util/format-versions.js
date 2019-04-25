@@ -17,13 +17,11 @@ const template = Handlebars.compile(
 );
 
 const formatVersions = function (versions) {
-  return (
-    (versions.versions.length &&
-      template({
-        versions: versions.versions,
-      })) ||
-    ''
-  );
-}
+  if (!versions || !versions.versions || !versions.versions.length) return ''
+
+  return template({
+    versions: versions.versions
+  });
+};
 
 module.exports = formatVersions;
