@@ -173,7 +173,7 @@
     "jest": "^20.0.4",
     "jsdom": "^11.0.0",
     "lint-staged": "^4.2.3",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.3",
     "node-sass": "^4.5.3",
     "react-addons-test-utils": "^15.6.0",
     "react-test-renderer": "^15.6.1",
