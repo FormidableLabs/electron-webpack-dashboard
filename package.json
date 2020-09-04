@@ -203,7 +203,7 @@
     "electron-is-dev": "^0.3.0",
     "electron-json-storage": "^3.0.7",
     "font-awesome": "^4.7.0",
-    "handlebars": "^4.0.10",
+    "handlebars": "^4.5.3",
     "history": "^4.6.3",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
