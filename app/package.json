@@ -8,7 +8,7 @@
   "dependencies": {
     "electron-updater": "^2.8.7",
     "electron-settings": "^3.1.2",
-    "node-notifier": "^5.1.2",
+    "node-notifier": "^8.0.1",
     "socket.io": "1.7.3"
   },
   "author": "Ken Wheeler <thekenwheeler@gmail.com>",
