@@ -205,7 +205,7 @@
     "font-awesome": "^4.7.0",
     "handlebars": "^4.0.10",
     "history": "^4.6.3",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.21",
     "prop-types": "^15.5.10",
     "rc-progress": "^2.1.0",
     "react": "^15.6.1",
